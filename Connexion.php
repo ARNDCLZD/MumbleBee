@@ -12,11 +12,9 @@ class Connexion {
     $password = '';
     try{
       self::$bdd = new PDO($dns, $user, $password);
-      echo("Connexion a la bd correct \n");
+    }catch(PDOException $e){
+      echo $e->getMessage();
     }
-      catch(PDOException $e){
-        echo $e->getMessage();
-      }
 
   }
 
