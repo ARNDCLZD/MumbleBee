@@ -12,7 +12,7 @@ class ContPublication {
       if (isset($_GET['action'])) {
           $action = $_GET['action'];
       } else {
-          $action = 'rechercher';
+          $action = 'ajouter';
       }
         $this->trie($action);
 
