@@ -46,22 +46,16 @@ class ModeleUser extends Connexion
   }
   public function ajoutUser(){
   	$login = $_POST['login'];
-    var_dump($login);
   	$email = $_POST['email'];
-    var_dump($email);
   	$motDePasse = $_POST['motDePasse'];
-    var_dump($motDePasse);
   	$admin = $_POST['admin'];
 
-  	if($login !== "" && $email !== "" && $motDePasse !== ""){
-  		if(isset($admin))
-  		$login = trim(htmlentities($login));
-  		$email = trim(htmlentities($email));
-  		$motDePasse = trim(htmlentities($motDePasse));
-  		
+  	if($login !== "" && $email !== "" && $motDePasse !== ""){	
+      $motDePasse = password_hash($motDePasse, PASSWORD_DEFAULT);	
  		try {
       		$sql = self::$bdd->prepare('INSERT INTO utilisateur (Login, Email, MotDePasse, Admin) VALUES (?, ?, ?, ?)'); 
       		$sql->execute([$login, $email, $motDePasse, $admin]);
+          echo "Insertion effectuée. <br>";
     	} catch(PDOException $e) {
       		print_r($bdd->errorInfo());
     	}

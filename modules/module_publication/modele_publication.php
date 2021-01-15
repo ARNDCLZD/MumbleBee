@@ -52,8 +52,7 @@ class ModelePublication extends Connexion
   	$prive = $_POST['prive'];
 
   	if($intitule !== "" && $description !== "" && $typeContenu !== "" && $contenu !== ""){
-  		if(isset($prive))
-  		$intitule = trim(htmlentities($intitule));
+      $intitule = trim(htmlentities($intitule));
   		$contenu = trim(htmlentities($contenu));
   		$description = trim(htmlentities($description));
   		$typeContenu = trim(htmlentities($typeContenu));

@@ -29,7 +29,7 @@ class VuePublication extends VueGenerique{
     }
   }
   public function publication_form(){
-    echo "<form action=\"index.php?action=ajout\" method=\"post\">";
+    echo "<form action=\"index.php?module=publication&action=ajout\" method=\"post\">";
     echo "<p>Titre : <input type=\"text\" name=\"intitule\" /></p>";
     echo "<p>Contenu : <input type=\"text\" name=\"contenu\" /></p>";
     echo "<p>Description : <input type=\"text\" name=\"description\" /></p>";
