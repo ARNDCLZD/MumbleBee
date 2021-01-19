@@ -1,12 +1,5 @@
 <?php
-   	session_start();
-   	$module = isset($_GET['module']) ? $_GET['module'] : "user";
-   	switch ($module){
-        case "connexion" :
-   			include "modules/module_".$module."/mod_".$module.".php";
-   			Connexion::initConnexion();
-   			break;
-   		default :
+   
    	 if(isset($_GET['module'])){
     $module = $_GET['module'];
     switch ($module){
