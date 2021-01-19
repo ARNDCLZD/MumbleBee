@@ -2,12 +2,16 @@
 include_once 'modele_user.php';
 include_once 'vue_user.php';
 
+
 class ContUser {
   private $vue;
   private $mod;
-  public function __construct(){
+  private $vueInd;
+  public function __construct(){  
+      
       $this->vue = new VueUser();
       $this->mod = new ModeleUser();
+      
 
       if (isset($_GET['action'])) {
           $action = $_GET['action'];

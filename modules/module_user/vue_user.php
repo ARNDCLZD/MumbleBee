@@ -13,6 +13,7 @@ class VueUser extends VueGenerique{
     echo "Utilisateur : " . $value['Login'] . "<br>" . "Email : " . $value['Email'] . "<br>" . "Statut : " . $value['Admin'];
   }
   public function user_form(){
+
     echo "<form action=\"index.php?module=user&action=ajout\" method=\"post\">";
     echo "<p>Login : <input type=\"text\" name=\"login\" /></p>";
     echo "<p>Email : <input type=\"text\" name=\"email\" /></p>";
@@ -20,6 +21,9 @@ class VueUser extends VueGenerique{
     echo "<p>Admin : <input type=\"checkbox\" name=\"admin\" value=\"1\" /></p>";
     echo "<p><input type=\"submit\" value=\"OK\"></p>";
     echo "</form>";
+
+    readfile(getcwd().'/../../templates/registerForm.html');
+
   }
   public function rechercheUser_form(){
     echo "<form action=\"index.php?module=user&action=recherche\" method=\"post\">";
