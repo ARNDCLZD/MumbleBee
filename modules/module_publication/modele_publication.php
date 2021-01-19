@@ -49,20 +49,19 @@ class ModelePublication extends Connexion
   	$contenu = $_POST['contenu'];
   	$typeContenu = $_POST['typeContenu'];
   	$description = $_POST['description'];
-  	$prive = $_POST['prive'];
+  	$prive = isset($_POST['prive']) ? $_POST['prive'] : 0;
 
   	if($intitule !== "" && $description !== "" && $typeContenu !== "" && $contenu !== ""){
       $intitule = trim(htmlentities($intitule));
   		$contenu = trim(htmlentities($contenu));
   		$description = trim(htmlentities($description));
   		$typeContenu = trim(htmlentities($typeContenu));
-  		if($typeContenu !== "texte") throw new ModelePublicationException("TypeContenu saisi incorrect.", 3);
   		
  		try {
-      		$sql = self::$bdd->prepare('INSERT INTO publication (Contenu, Intitule, Description, Prive, TypeContenu) VALUES (?, ?, ?, ?, ?)'); 
-      		$sql->execute([$contenu, $intitule, $description, $prive, $typeContenu]);
-    	} catch(PDOException $e) {
-      		print_r($bdd->errorInfo());
+      $sql = self::$bdd->prepare('INSERT INTO publication (Contenu, Intitule, Description, Prive, TypeContenu) VALUES (?, ?, ?, ?, ?)'); 
+      $sql->execute([$contenu, $intitule, $description, $prive, $typeContenu]);
+    } catch(PDOException $e) {
+      print_r($bdd->errorInfo());
     	}
     }
     else

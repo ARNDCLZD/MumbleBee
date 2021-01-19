@@ -17,11 +17,15 @@ class VuePublication extends VueGenerique{
         break;
 
       case "image":
-        echo "Description : " . $value['description'] . "<br>" . "<img src=\"\" ". $value['contenu'] . "alt=\"image\" title=\"image proposée\"/>";
+        echo '<img src="data:image/jpeg;base64,'.base64_encode( $value['Contenu'] ).'"/>'. "<br>" . "Description : " . $value['Description'];
         break;
 
       case "son":
-        echo "Description : " . $value['description'] . "<br>" . "<audio controls src=\"\"" . $value['contenu'] . ">Le contenu audio n'est pas accessible</audio>";
+        echo '<audio controls src="data:audio/mp3;base64,'. base64_encode($value['Contenu']) . '"></audio>'. "<br>" . "Description : " . $value['Description'];
+        break;
+
+      case "video":
+        echo '<video controls width="200px" src="data:video/mp4;base64,'. base64_encode($value['Contenu']) .'"></video>'. "<br>" ."Description : " . $value['Description'];
         break;
 
       default:
@@ -34,12 +38,16 @@ class VuePublication extends VueGenerique{
     echo "<p>Contenu : <input type=\"text\" name=\"contenu\" /></p>";
     echo "<p>Description : <input type=\"text\" name=\"description\" /></p>";
     echo "<p>Prive : <input type=\"checkbox\" name=\"prive\" value=\"1\" /></p>";
-    echo "<p>TypeContenu : <input type=\"text\" name=\"typeContenu\" /></p>";
+    echo "<p>TypeContenu : <select name=\"typeContenu\">
+                              <option value=\"texte\">Texte</option>
+                              <option value =\"image\">Image</option>
+                              <option value =\"son\">Image</option>
+                          </select></p>";
     echo "<p><input type=\"submit\" value=\"OK\"></p>";
     echo "</form>";
   }
   public function recherchePublication_form(){
-    echo "<form action=\"index.php?action=recherche\" method=\"post\">";
+    echo "<form action=\"index.php?module=publication&action=recherche\" method=\"post\">";
     echo "<p><input type=\"search\" name=\"intitule\"></p>";
     echo "<p><input type=\"submit\" value=\"OK\"></p>";
     echo "</form>";
