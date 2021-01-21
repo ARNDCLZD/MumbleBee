@@ -1,0 +1,23 @@
+{
+  "name": "mumblebee",
+  "version": "1.0.0",
+  "description": "Projet WEB stylé tout simplement",
+  "main": "index.js",
+  "scripts": {
+    "build css": "tailwindcss build styles.css -o tailwind.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ARNDCLZD/MumbleBee.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ARNDCLZD/MumbleBee/issues"
+  },
+  "homepage": "https://github.com/ARNDCLZD/MumbleBee#readme",
+  "dependencies": {
+    "autoprefixer": "^10.2.3",
+    "tailwindcss": "^2.0.2"
+  }
+}
