@@ -1,6 +1,6 @@
 <?php
    	session_start();
-   	$module = isset($_GET['module']) ? $_GET['module'] : "user";
+   	$module = isset($_GET['module']) ? $_GET['module'] : "hashtag";
    	switch ($module){
         case "connexion" :
    			include "modules/module_".$module."/mod_".$module.".php";
