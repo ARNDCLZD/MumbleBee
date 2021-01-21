@@ -11,15 +11,16 @@
    			//die("Interdiction d'accès à ce module.");
    	}
       $nomModule = "Mod".$module;
-   	new $nomModule();	
+   	new $nomModule();
 ?>
 <!DOCTYPE html>
 <html>
 <head>
    <title>Mumble Bee - Accueil</title>
    <meta charset="utf-8">
+   <link rel="stylesheet" href="css/style.css"/>
 </head>
-<body>
+<body class="bg-gray-800">
 <header>  
   <?php
   /*
