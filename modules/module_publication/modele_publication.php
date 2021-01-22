@@ -86,6 +86,5 @@ class ModelePublication extends Connexion
   	}
   }
 
-}
 class ModelePublicationException extends Exception{}
 ?>
