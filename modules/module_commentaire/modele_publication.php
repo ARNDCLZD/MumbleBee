@@ -1,50 +1,38 @@
 <?php
 include 'Connexion.php';
 
-class ModelePublication extends Connexion
+class ModeleCommentaire extends Connexion
 {
   public function __construct ()
   {
   }
-  public function getPublications(){
+  public function getCommentaires(){
     try{
-    $reponse = self::$bdd->prepare('SELECT * FROM publication');
+    $reponse = self::$bdd->prepare('SELECT * FROM commentaire');
     $reponse->execute();
     
     if(($tab = $reponse->fetch(PDO::FETCH_ASSOC)) !== false) {
       return $tab;
     }
-    throw new ModelePublicationException("Fetch impossible.",2);
+    throw new ModeleCommentaireException("Fetch impossible.",2);
     }catch(PDOException $p){
-      echo("publication introuvable");
+      echo("commentaire introuvable");
     }
   }
-  	public function getPublicationId() {
+  	public function getCommentaireId() {
     	try{
     		$id = $_GET['id'];
-    		$reponse = self::$bdd->prepare('SELECT * FROM publication WHERE IdPubli = :id');
+    		$reponse = self::$bdd->prepare('SELECT * FROM commentaire WHERE id = :id');
     		$reponse->bindParam(":id",$id);
     		$reponse->execute();
     		$tab = $reponse->fetch(PDO::FETCH_ASSOC);
     	}catch(PDOException $p){
-      		echo("publication introuvable");
+      		echo("commentaire introuvable");
     	}
     	return $tab;
     }
 
-    public function getPublicationIntitule() {
-    	try{
-    		$id = $_GET['Intitule'];
-    		$reponse = self::$bdd->prepare('SELECT * FROM publication WHERE intitule = :intitule');
-    		$reponse->bindParam(":intitule",$intitule);
-    		$reponse->execute();
-    		$tab = $reponse->fetch(PDO::FETCH_ASSOC);
-    	}catch(PDOException $p){
-      		echo("publication introuvable");
-    	}
-	return $tab;
-  }
-  public function ajoutPublication(){
+  public function ajoutCommentaire(){
   	$intitule = $_POST['intitule'];
   	$contenu = $_POST['contenu'];
   	$typeContenu = $_POST['typeContenu'];
@@ -63,20 +51,12 @@ class ModelePublication extends Connexion
     } catch(PDOException $e) {
       print_r($bdd->errorInfo());
     	}
-	}
+    }
     else
     {
       throw new ModelePublicationException("Champ d'insertion nul.", 4);
-	}
-	if(isset($_SESSION['id'])){
-		$idAuteur = $_SESSION['id']['IdUtil'];
-        $sql = self::$bdd->prepare('SELECT IdPubli FROM publication WHERE Intitule=:intitule');
-        $sql->bindParam(':intitule',$intitule, PDO::PARAM_STR);
-        $sql->execute();
-        $idPubli = $sql->fetch(PDO::FETCH_ASSOC);
-		$sql = self::$bdd->prepare('INSERT INTO poster VALUES (?,?)');
-        $sql->execute([$idAuteur, $idPubli['IdPubli']]);
-	}
+      
+    }
 
   }
   public function recherchePublication(){
@@ -93,18 +73,6 @@ class ModelePublication extends Connexion
   		return $tab;
   	}
   }
-  public function deletePublicationId(){
-	try{
-		$id = $_GET['id'];
-		$tab = $reponse->fetch(PDO::FETCH_ASSOC);
-		$sql = self::$bdd->prepare('DELETE FROM publication WHERE IdPubli = :id'); 
-		$sql->bindParam(":id",$id);
-		$sql->execute();
-	}catch(PDOException $p){
-		  echo("publication introuvable");
-	}
-  }
-}
 
 }
 class ModelePublicationException extends Exception{}

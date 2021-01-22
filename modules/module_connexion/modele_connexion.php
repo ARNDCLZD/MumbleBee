@@ -15,6 +15,10 @@ class ModeleConnexion extends Connexion
       $verifyPWD = $sql->fetch(PDO::FETCH_ASSOC);
       if(password_verify($pwd,$verifyPWD['MotDePasse'])){
         $_SESSION['username'] = $username;
+        $sql = self::$bdd->prepare('SELECT IdUtil FROM utilisateur WHERE Login=:username');
+        $sql->bindParam(':username',$username, PDO::PARAM_STR);
+        $sql->execute();
+        $_SESSION['id'] = $sql->fetch(PDO::FETCH_ASSOC);
         echo 'connecté en tant que '. $username;
       } else {
         echo 'pas bon' . "<br>" . $pwd;

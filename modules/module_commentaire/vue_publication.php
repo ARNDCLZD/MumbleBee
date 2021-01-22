@@ -71,7 +71,7 @@ class VuePublication extends VueGenerique{
     });
     </script>
     <?php
-    echo "<p>Contenu : <input type=\"text\" name=\"contenu\" /></p>";
+    /*echo "<p>Contenu : <input type=\"text\" name=\"contenu\" /></p>";*/
     echo "<div id=\"contenu\"></div>";
     echo "<p>Description : <input type=\"text\" name=\"description\" /></p>";
     echo "<p>Prive : <input type=\"checkbox\" name=\"prive\" value=\"1\" /></p>";
