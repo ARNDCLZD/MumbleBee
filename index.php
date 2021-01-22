@@ -3,6 +3,7 @@
 <head>
    <title>Mumble Bee - Accueil</title>
    <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ovo" />
    <link href="tailwind/tailwind.css" rel="stylesheet">
 </head>
@@ -11,7 +12,7 @@
 <header class="bg-noir-800 justify-center content-center flex-auto flex-shrink-0">
    <?php include "templates/header/nav.php";?>
 </header>
-<main class="bg-jaune-300 hover:bg-jaune-700 transition-all duration-300 flex-8">
+<main class="bg-jaune-300 flex-8">
 <?php
    if(isset($_GET['module'])){
     $module = $_GET['module'];
@@ -26,6 +27,7 @@
     }
    $nomModule = "Mod".$module;
    new $nomModule(); 
+
    }
 ?>
 </main>
