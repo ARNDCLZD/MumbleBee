@@ -19,6 +19,12 @@ class ModeleConnexion extends Connexion
         $sql->bindParam(':username',$username, PDO::PARAM_STR);
         $sql->execute();
         $_SESSION['id'] = $sql->fetch(PDO::FETCH_ASSOC);
+        $admin = self::$bdd->prepare('SELECT Admin FROM utilisateur WHERE Login=:username');
+        $admin->bindParam(':username',$username, PDO::PARAM_STR);
+        $admin->execute();
+        $var = $admin->fetch(PDO::FETCH_ASSOC);
+        $_SESSION['Admin'] = $var['Admin'];
+        echo 'connecté en tant que '. $username;
       } else {
         echo 'pas bon' . "<br>" . $pwd;
       }

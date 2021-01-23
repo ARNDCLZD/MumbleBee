@@ -19,6 +19,18 @@ class ModelePublication extends Connexion
       echo("publication introuvable");
     }
   }
+
+  public function supprimerPublication(){
+	try{
+		$id = $_POST['id'];
+		$reponse = self::$bdd->prepare('DELETE FROM publication WHERE IdPubli = :id');
+		$reponse->bindParam(":id",$id);
+		$reponse->execute();
+		}catch(PDOException $p){
+		  echo("publication non supprimable");
+	}
+  }
+
   	public function getPublicationId() {
     	try{
     		$id = $_GET['id'];
@@ -30,7 +42,20 @@ class ModelePublication extends Connexion
       		echo("publication introuvable");
     	}
     	return $tab;
-    }
+	}
+	
+	public function getCommentaireById(){
+		try{
+			$id = $_GET['id'];
+    		$reponse = self::$bdd->prepare('SELECT Login, Contenu FROM commentaire INNER JOIN utilisateur ON commentaire.IdAuteur = utilisateur.IdUtil WHERE commentaire.IdUtil = :id');
+    		$reponse->bindParam(":id",$id);
+			$reponse->execute();			
+			$tab = $reponse->fetchAll();
+    	}catch(PDOException $p){
+      		echo("commentaire introuvable");
+    	}
+		return $tab;
+	}
 
     public function getPublicationIntitule() {
     	try{
@@ -91,7 +116,12 @@ return $tab;
 
   }
   public function recherchePublication(){
-  	$intitule = $_POST['intitule'];
+	if(isset($_POST['intitule'])){
+		$intitule = $_POST['intitule'];
+	}
+	else{
+		$intitule = "";
+	}
   	if($intitule !== ""){
   		try{
   			$sql = self::$bdd->prepare('SELECT * FROM publication WHERE intitule = :intitule');

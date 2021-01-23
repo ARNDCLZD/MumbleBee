@@ -6,8 +6,19 @@ class VuePublication{
     parent::construct();
   }
 
-  public function affiche_publication($value)
+  public function affiche_publication($value, $coms)
   {
+    if(isset($_SESSION['Admin']) && $_SESSION['Admin'] == 1){
+      echo $_SESSION['Admin'];
+      echo "<form method=\"POST\" action=\"index.php?module=publication&action=supprimer&id=\"".$_GET['id']."\">";
+      echo "<input name=\"supprimer\" type=\"submit\" value=\"supprimer\">"; 
+      echo "<input name=\"id\" style=\"display:none\" type=\"text\" value=\"".$_GET['id']."\">"; 
+      echo "</form>";
+
+    }
+
+    
+    echo "<h1> " . $value['Intitule'] . "</h1>";
     switch ($value['TypeContenu']){
 
       case 'texte':
@@ -29,7 +40,25 @@ class VuePublication{
       default:
         echo "Impossible d'afficher la publication";
     }
+    foreach ($coms as $key => $val) {
+   
+      echo "<br>";
+      echo "Utilisateur: " . $val['Login'];
+      echo "<br>";
+      echo "Commentaire: " . $val['Contenu'];
+      echo "<br>";
+      
+     
+    
+    }
   }
+
+  public function suppression(){
+    echo "<h1>Cet article a bien été supprimé</h1>";
+  }
+
+
+
   public function publication_form(){
     echo "<form action=\"index.php?module=publication&action=ajout\" method=\"post\">";
     echo "<p>Titre : <input type=\"text\" name=\"intitule\" /></p>";
@@ -62,11 +91,17 @@ class VuePublication{
     echo "<p><input type=\"submit\" value=\"OK\"></p>";
     echo "</form>";
   }
-  public function recherchePublication_form(){
-    echo "<form action=\"index.php?module=publication&action=recherche\" method=\"post\">";
-    echo "<p><input type=\"search\" name=\"intitule\"></p>";
-    echo "<p><input type=\"submit\" value=\"OK\"></p>";
-    echo "</form>";
+  public function recherchePublication_form($tab){
+    if(!empty($tab)){
+      foreach ($tab as $value) {
+        echo " <a style=\"color:blue;\" href=\"index.php?module=publication&action=afficher&id={$value['IdPubli']}\"> {$value['Intitule']}</a> ";
+      }
+    }
+    else{
+      echo "<h2>Pas de résultat :/</h2>";
+    }
+    
+    
   } 
 }
 ?>

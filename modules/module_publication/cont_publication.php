@@ -20,16 +20,16 @@ class ContPublication {
   function trie($action) {
     switch ($action) {
         case "ajouter":
-          $this->ajoutPublicationform();
-          break;
-        case "ajout":
           $this->ajoutPublication();
           break;
         case "rechercher":
-          $this->recherchePublicationform();
-          break;
-        case "recherche":
           $this->recherchePublication();
+          break;
+        case "afficher":
+          $this->afficherPublication();
+          break;
+        case "supprimer":
+          $this->supprimerPublication();
           break;
         default:
           $this->error();
@@ -40,18 +40,27 @@ class ContPublication {
     http_response_code(404);
     die;
   }
-  public function recherchePublicationform(){
-    $this->vue->recherchePublication_form();
-  }
+ 
   public function recherchePublication(){
-    $var = $this->mod->recherchePublication();
-    
+    $tab = $this->mod->recherchePublication();
+    $this->vue->recherchePublication_form($tab);
+   
   }
-  public function ajoutPublicationform(){
-    $this->vue->publication_form();
-  }
+
   public function ajoutPublication(){
     $this->mod->ajoutPublication();
+    $this->vue->publication_form();
+  }
+
+  public function afficherPublication(){
+    $publi = $this->mod->getPublicationId();
+    $coms = $this->mod->getCommentaireById();
+    $this->vue->affiche_publication($publi, $coms);
+    
+  }
+  public function supprimerPublication(){
+    $this->mod->supprimerPublication();
+    $this->vue->suppression();
   }
 
 }

@@ -6,7 +6,7 @@
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="module">
         const callApi = async()=>{
-            const res = await fetch("http://localhost/MB/MumbleBee/api.php/?module=api&action=getHashtags");
+            const res = await fetch("http://localhost/MumbleBee/api.php/?module=api&action=getHashtags");
             const data = await res.json();
             console.log("data : ", data);
             const carousel = document.getElementById("container");
