@@ -12,7 +12,7 @@
 <header class="bg-noir-800 justify-center content-center flex-auto flex-shrink-0">
    <?php include "templates/header/nav.php";?>
 </header>
-<main class="bg-jaune-300 flex-8">
+<main class="bg-jaune-300 flex flex-col flex-8">
 <?php
    session_start();
    if(isset($_GET['module'])){
@@ -30,7 +30,7 @@
    $nomModule = "Mod".$module;
    new $nomModule(); 
    }
-   readfile(getcwd().'/templates/carousel.html'); 
+   readfile(getcwd().'/templates/listeDVHashtag.html'); 
 ?>
 </main>
 <?php include 'templates/footer.php'; ?>

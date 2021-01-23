@@ -42,34 +42,20 @@ class VuePublication{
                           </select></p></form>";
     ?>
     <script>
-    $(function{
-      document.getElementById("choix").onChange = function(){
-        switch(document.getElementById("choix").onChange){
-          case 'texte' :
-            document.getElementById("contenu").innerHTML=
-            "<p>Contenu : <input type=\"text\" name=\"contenu\"/></p>";
-          break;
-          case 'image' :
-            document.getElementById("contenu").innerHTML=
-            "<p>placeholder</p>";
-          break;
-          case 'son' :
-            document.getElementById("contenu").innerHTML=
-            "<p>placeholder</p>";
-          break;
-          case 'video' :
-            document.getElementById("contenu").innerHTML=
-            "<p>placeholder</p>";
-          break;
-          default :
-          break;
+    window.addEventListener("load",function(){
+      document.getElementById("choix").addEventListener("change",function(e){
+        const inputs = {
+          texte :"<p>Contenu : <input type=\"text\" name=\"contenu\"/></p>",
+          image :"<p>placeholder</p>",
+          son :"<p>placeholder</p>",
+          video :"<p>placeholder</p>",
         }
+        document.getElementById("contenu").innerHTML = inputs[e.target.value];
 
-      }
+      });
     });
     </script>
     <?php
-    echo "<p>Contenu : <input type=\"text\" name=\"contenu\" /></p>";
     echo "<div id=\"contenu\"></div>";
     echo "<p>Description : <input type=\"text\" name=\"description\" /></p>";
     echo "<p>Prive : <input type=\"checkbox\" name=\"prive\" value=\"1\" /></p>";

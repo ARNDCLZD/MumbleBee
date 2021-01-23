@@ -1,5 +1,5 @@
 <?php
-include 'Connexion.php';
+include_once 'Connexion.php';
 
 class ModeleUser extends Connexion
 {

@@ -1,5 +1,5 @@
 <?php
-include 'cont_publication.php';
+include_once 'cont_publication.php';
 
 class ModPublication
 {

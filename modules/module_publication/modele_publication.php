@@ -1,5 +1,5 @@
 <?php
-include 'Connexion.php';
+include_once 'Connexion.php';
 
 class ModelePublication extends Connexion
 {
@@ -43,6 +43,18 @@ class ModelePublication extends Connexion
       		echo("publication introuvable");
     	}
 	return $tab;
+  }
+  public function getPublicationByAuthorId(){
+	try{
+		$id = $_GET['idUser'];
+		$reponse = self::$bdd->prepare('SELECT * FROM poster WHERE IdAuteur = :idUser');
+		$reponse->bindParam(":idUser",$id);
+		$reponse->execute();
+		$tab = $reponse->fetch(PDO::FETCH_ASSOC);
+	}catch(PDOException $p){
+		  echo("publication introuvable");
+	}
+return $tab;
   }
   public function ajoutPublication(){
   	$intitule = $_POST['intitule'];

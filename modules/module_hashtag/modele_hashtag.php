@@ -1,24 +1,37 @@
 <?php
-include 'Connexion.php';
+include_once 'Connexion.php';
 
 class ModeleHashtag extends Connexion
 {
   public function __construct ()
   {
   }
-  public function getHashtags(){
-    try{
-    $reponse = self::$bdd->prepare('SELECT * FROM hashtag');
-    $reponse->execute();
-    
-    if(($tab = $reponse->fetchAll()) !== false) {
-      return $tab;
-    }
-    throw new ModeleHashtagException("Fetch impossible.",2);
-    }catch(PDOException $p){
-      echo("hashtag introuvable");
-    }
-  }
+  	public function getHashtags(){
+    	try{
+    		$reponse = self::$bdd->prepare('SELECT * FROM hashtag');
+    		$reponse->execute();
+    		if(($tab = $reponse->fetchAll()) !== false) {
+     			return $tab;
+    		}
+    		throw new ModeleHashtagException("Fetch impossible.",2);
+    	}catch(PDOException $p){
+      		echo("hashtag introuvable");
+    	}
+  	}
+  	public function getHashtagsList($start,$end) {
+		try{
+			$reponse = self::$bdd->prepare('SELECT * FROM hashtag LIMIT :start,:end');
+			$reponse->bindParam(":start",$start,PDO::PARAM_INT);
+			$reponse->bindParam(":end",$end,PDO::PARAM_INT);
+			$reponse->execute();
+			if(($tab = $reponse->fetchAll()) !== false) {
+		  		return $tab;
+			}
+			throw new ModeleHashtagException("Fetch impossible.",2);
+		}catch(PDOException $p){
+			echo("hashtag introuvable");
+		}
+	}
   	public function getHashtagId() {
     	try{
     		$id = $_GET['id'];
@@ -31,7 +44,6 @@ class ModeleHashtag extends Connexion
     	}
     	return $tab;
     }
-
     public function getHashtagIntitule() {
     	try{
     		$id = $_GET['Intitule'];

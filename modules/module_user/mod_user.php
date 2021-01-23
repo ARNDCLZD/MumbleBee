@@ -1,5 +1,5 @@
 <?php
-include 'cont_user.php';
+include_once 'cont_user.php';
 
 class ModUser
 {

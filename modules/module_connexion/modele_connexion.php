@@ -1,5 +1,5 @@
 <?php
-include 'Connexion.php';
+include_once 'Connexion.php';
 
 class ModeleConnexion extends Connexion
 {
@@ -19,7 +19,6 @@ class ModeleConnexion extends Connexion
         $sql->bindParam(':username',$username, PDO::PARAM_STR);
         $sql->execute();
         $_SESSION['id'] = $sql->fetch(PDO::FETCH_ASSOC);
-        echo 'connecté en tant que '. $username;
       } else {
         echo 'pas bon' . "<br>" . $pwd;
       }
@@ -27,7 +26,6 @@ class ModeleConnexion extends Connexion
   }
 
   public function deconnexion(){
-    echo "Deconnexion de " . $_SESSION['username'];
     session_destroy();
   }
 }

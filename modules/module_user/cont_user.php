@@ -52,7 +52,7 @@ class ContUser {
     http_response_code(404);
   }
   public function showLikes(){
-    $this->vueConnexion->deconnexion_form();
+    echo "les likes";
   }
   public function showProfile(){
     try{

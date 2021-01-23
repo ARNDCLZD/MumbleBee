@@ -1,11 +1,14 @@
 <?php
 include_once 'modules/module_hashtag/modele_hashtag.php';
+include_once 'modules/module_publication/modele_publication.php';
 
 class ContApi {
-  private $mod;
+  private $modHashtag;
+  private $modPublication;
   private $response;
   public function __construct(){
-      $this->mod = new ModeleHashtag();
+      $this->modHashtag = new ModeleHashtag();
+      $this->modPublication = new ModelePublication();
 
       if (isset($_GET['action'])) {
           $action = $_GET['action'];
@@ -13,12 +16,17 @@ class ContApi {
           $action = 'ajouter';
       }
         $this->trie($action);
-
   }
   function trie($action) {
     switch ($action) {
         case "getHashtags":
           $this->getHashtags();
+          break;
+        case "getHashtagsList":
+          $this->getHashtagsList();
+          break;
+        case "getPublicationsByAuthorId":
+          $this->getPublicationsByAuthorId();
           break;
         default:
           $this->error();
@@ -31,7 +39,11 @@ class ContApi {
     die;
   }
   public function getHashtags(){
-    $hashtags = $this->mod->getHashtags();
+    $hashtags = $this->modHashtag->getHashtags();
+    echo json_encode($hashtags);
+  }
+  public function getHashtagsList(){
+    $hashtags = $this->modHashtag->getHashtagsList($_GET['start'],$_GET['end']);
     echo json_encode($hashtags);
   }
 }
