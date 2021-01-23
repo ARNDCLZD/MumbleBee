@@ -6,7 +6,7 @@ class VuePublication{
     parent::construct();
   }
 
-  public function affiche_publication($value, $coms)
+  public function affiche_publication($value, $coms, $id)
   {
     if(isset($_SESSION['Admin']) && $_SESSION['Admin'] == 1){
       echo $_SESSION['Admin'];
@@ -35,11 +35,15 @@ class VuePublication{
       default:
         echo "Impossible d'afficher la publication";
     }
+    echo "<form action=\"index.php?module=publication&action=afficher&id=".$id."\" method=\"post\">";
+    echo "<p>Commentaire : <input type=\"text\" name=\"texteCommentaire\" /></p>";
+    echo "<p><input type=\"submit\" value=\"OK\"></p>";
+    echo "</form>";
     foreach ($coms as $key => $val) {
     //  echo "<br>";
      // echo "Auteur: " . $val['IdAuteur'];
       echo "<br>";
-      echo "Utilisateur: " . $val['Login'];
+      echo "Utilisateur: " . $val['IdAuteur'];
       echo "<br>";
       echo "Commentaire: " . $val['Contenu'];
       echo "<br>";
@@ -105,8 +109,7 @@ class VuePublication{
     else{
       echo "<h2>Pas de résultat :/</h2>";
     }
-    
-    
-  } 
+  }
+
 }
 ?>
