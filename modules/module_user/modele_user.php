@@ -36,13 +36,13 @@ class ModeleUser extends Connexion
 
     public function getUserLogin() {
     	try{
-			if(isset($_POST['username'])){
-				$login = $_POST['username'];
+			if(isset($_SESSION['username'])){
+				$login = $_SESSION['username'];
     			$reponse = self::$bdd->prepare('SELECT * FROM utilisateur WHERE login = :login');
     			$reponse->bindParam(":login",$login);
     			$reponse->execute();
 				$tab = $reponse->fetch(PDO::FETCH_ASSOC);
-			} else throw new ModeleUserException("Pas d'utilisateur en POST",1);
+			} else throw new ModeleUserException("Pas d'utilisateur en SESSION",1);
     	}catch(PDOException $p){
       		echo("utilisateur introuvable");
     	}
@@ -84,7 +84,6 @@ class ModeleUser extends Connexion
   		return $tab;
   	}
   }
-
 }
 class ModeleUserException extends Exception{}
 ?>

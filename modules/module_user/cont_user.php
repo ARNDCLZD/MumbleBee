@@ -55,15 +55,12 @@ class ContUser {
     $this->vueConnexion->deconnexion_form();
   }
   public function showProfile(){
-    if(isset($_SESSION['username'])){
-      try{
-        $user = $this->mod->getUserLogin();
-      }catch(ModeleUserException $e){  
-      }
+    try{
+      $user = $this->mod->getUserLogin();
       $this->vue->showProfile($user);
-    }else{
-      $this->vueConnexion->connexion_form();
-    }  
+    }catch(ModeleUserException $e){
+      $this->vueConnexion->connexion_form();  
+    }
   }
   public function rechercheUserform(){
     $this->vue->rechercheUser_form();

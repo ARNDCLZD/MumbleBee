@@ -10,14 +10,13 @@
           ?
         </p>
       </div>
-      <form class="mt-8 space-y-6" action="#" method="POST">
-        <input type="hidden" name="remember" value="true">
+      <form class="mt-8 space-y-6" action="index.php?module=connexion&action=connexion" method="POST">
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
-            <input id="username" name="email" type="login" required class="appearance-none bg-jaune-300 rounded-none relative block w-full px-3 py-2 border border-noir-800 placeholder-noir-800 text-noir-800 rounded-t-md focus:outline-none focus:ring-jaune-600 focus:border-jaune-600 focus:z-10 sm:text-sm" placeholder="Nom d'utilisateur">
+            <input id="username" name="username" type="login" required class="appearance-none bg-jaune-300 rounded-none relative block w-full px-3 py-2 border border-noir-800 placeholder-noir-800 text-noir-800 rounded-t-md focus:outline-none focus:ring-jaune-600 focus:border-jaune-600 focus:z-10 sm:text-sm" placeholder="Nom d'utilisateur">
           </div>
           <div>
-            <input id="password" name="password" type="password" autocomplete="current-password" required class="appearance-none bg-jaune-300 rounded-none relative block w-full px-3 py-2 border border-noir-800 placeholder-noir-800 text-noir-800 rounded-b-md focus:outline-none focus:ring-jaune-600 focus:border-jaune-600  focus:z-10 sm:text-sm" placeholder="Mot de passe">
+            <input id="password" name="pwd" type="password" autocomplete="current-password" required class="appearance-none bg-jaune-300 rounded-none relative block w-full px-3 py-2 border border-noir-800 placeholder-noir-800 text-noir-800 rounded-b-md focus:outline-none focus:ring-jaune-600 focus:border-jaune-600  focus:z-10 sm:text-sm" placeholder="Mot de passe">
           </div>
         </div> 
         <div>

@@ -12,7 +12,7 @@ class VueUser{
     echo "Utilisateur : " . $value['Login'] . "<br>" . "Email : " . $value['Email'] . "<br>" . "Statut : " . $value['Admin'];
   }
   public function showProfile($user){
-    echo "j'en peux plus";
+    readfile(getcwd().'/templates/profilePage.html');
   }
   public function user_form(){
     readfile(getcwd().'/templates/registerForm.html');

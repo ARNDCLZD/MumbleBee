@@ -5,6 +5,5 @@
       <div class="rounded-l-md bg-noir-800 text-jaune-300"><?php readfile(getcwd().'/templates/header/logo.html');?></div>
       <div class="rounded-tl-md bg-noir-800"><h1 class="text-lg">LIENS</h1></div>
     </div>
-
   </div>
 </footer>
