@@ -10,8 +10,13 @@ class VuePublication{
   {
     if(isset($_SESSION['Admin']) && $_SESSION['Admin'] == 1){
       echo $_SESSION['Admin'];
-      
+      echo "<form method=\"POST\" action=\"index.php?module=publication&action=supprimer&id=\"".$_GET['id']."\">";
+      echo "<input name=\"supprimer\" type=\"submit\" value=\"supprimer\">"; 
+      echo "<input name=\"id\" style=\"display:none\" type=\"text\" value=\"".$_GET['id']."\">"; 
+      echo "</form>";
+
     }
+
     
     echo "<h1> " . $value['Intitule'] . "</h1>";
     switch ($value['TypeContenu']){
@@ -36,18 +41,24 @@ class VuePublication{
         echo "Impossible d'afficher la publication";
     }
     foreach ($coms as $key => $val) {
-    //  echo "<br>";
-     // echo "Auteur: " . $val['IdAuteur'];
+   
       echo "<br>";
       echo "Utilisateur: " . $val['Login'];
       echo "<br>";
       echo "Commentaire: " . $val['Contenu'];
       echo "<br>";
       
-      //echo " <a style=\"color:blue;\" href=\"index.php?module=publication&action=afficher&id={$key['IdPubli']}\"> {$key['Intitule']}</a> ";
+     
     
     }
   }
+
+  public function suppression(){
+    echo "<h1>Cet article a bien été supprimé</h1>";
+  }
+
+
+
   public function publication_form(){
     echo "<form action=\"index.php?module=publication&action=ajout\" method=\"post\">";
     echo "<p>Titre : <input type=\"text\" name=\"intitule\" /></p>";
@@ -96,10 +107,8 @@ class VuePublication{
   }
   public function recherchePublication_form($tab){
     if(!empty($tab)){
-      //var_dump($tab);
       foreach ($tab as $value) {
         echo " <a style=\"color:blue;\" href=\"index.php?module=publication&action=afficher&id={$value['IdPubli']}\"> {$value['Intitule']}</a> ";
-       // print_r($tab);
       }
     }
     else{

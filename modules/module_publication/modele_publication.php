@@ -19,6 +19,18 @@ class ModelePublication extends Connexion
       echo("publication introuvable");
     }
   }
+
+  public function supprimerPublication(){
+	try{
+		$id = $_POST['id'];
+		$reponse = self::$bdd->prepare('DELETE FROM publication WHERE IdPubli = :id');
+		$reponse->bindParam(":id",$id);
+		$reponse->execute();
+		}catch(PDOException $p){
+		  echo("publication non supprimable");
+	}
+  }
+
   	public function getPublicationId() {
     	try{
     		$id = $_GET['id'];

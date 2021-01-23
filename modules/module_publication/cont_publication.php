@@ -28,6 +28,9 @@ class ContPublication {
         case "afficher":
           $this->afficherPublication();
           break;
+        case "supprimer":
+          $this->supprimerPublication();
+          break;
         default:
           $this->error();
       }    
@@ -54,6 +57,10 @@ class ContPublication {
     $coms = $this->mod->getCommentaireById();
     $this->vue->affiche_publication($publi, $coms);
     
+  }
+  public function supprimerPublication(){
+    $this->mod->supprimerPublication();
+    $this->vue->suppression();
   }
 
 }
