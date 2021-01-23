@@ -93,15 +93,15 @@ class ModelePublication extends Connexion
   	}
   }
   public function deletePublicationId(){
-	try{
-		$id = $_GET['id'];
-		$tab = $reponse->fetch(PDO::FETCH_ASSOC);
-		$sql = self::$bdd->prepare('DELETE FROM publication WHERE IdPubli = :id'); 
-		$sql->bindParam(":id",$id);
-		$sql->execute();
-	}catch(PDOException $p){
+    try{
+		  $id = $_GET['id'];
+		  $tab = $reponse->fetch(PDO::FETCH_ASSOC);
+		  $sql = self::$bdd->prepare('DELETE FROM publication WHERE IdPubli = :id'); 
+		  $sql->bindParam(":id",$id);
+		  $sql->execute();
+    }catch(PDOException $p){
 		  echo("publication introuvable");
-	}
+    }
   }
 }
 class ModelePublicationException extends Exception{}

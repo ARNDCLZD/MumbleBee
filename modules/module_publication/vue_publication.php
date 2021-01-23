@@ -39,7 +39,7 @@ class VuePublication{
                               <option value =\"image\">Image</option>
                               <option value =\"son\">Son</option>
                               <option value =\"video\">Video</option>
-                          </select></p>";
+                          </select></p></form>";
     ?>
     <script>
     $(function{

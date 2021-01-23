@@ -3,7 +3,7 @@ include 'cont_commentaire.php';
 
 class ModCommentaire
 {
-  private $publication;
+  private $commentaire;
   function __construct() {
     $this->commentaire = new ContCommentaire();
   }
