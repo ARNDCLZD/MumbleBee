@@ -11,7 +11,7 @@ class ModeleHashtag extends Connexion
     $reponse = self::$bdd->prepare('SELECT * FROM hashtag');
     $reponse->execute();
     
-    if(($tab = $reponse->fetch(PDO::FETCH_ASSOC)) !== false) {
+    if(($tab = $reponse->fetchAll()) !== false) {
       return $tab;
     }
     throw new ModeleHashtagException("Fetch impossible.",2);

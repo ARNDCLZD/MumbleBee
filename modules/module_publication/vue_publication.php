@@ -1,7 +1,5 @@
 <?php
-include 'vue_generique.php';
-
-class VuePublication extends VueGenerique{
+class VuePublication{
 
   public function construct()
   {

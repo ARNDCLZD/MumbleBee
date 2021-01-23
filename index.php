@@ -25,11 +25,12 @@
       default :
       include "modules/module_".$module."/mod_".$module.".php";
         //die("Interdiction d'accès à ce module.");
+        break;
     }
    $nomModule = "Mod".$module;
    new $nomModule(); 
-
    }
+   readfile(getcwd().'/templates/carousel.html'); 
 ?>
 </main>
 <?php include 'templates/footer.php'; ?>

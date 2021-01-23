@@ -31,5 +31,5 @@ class ModeleConnexion extends Connexion
     session_destroy();
   }
 }
-class ModeleUserException extends Exception{}
+class ModeleConnexionException extends Exception{}
 ?>

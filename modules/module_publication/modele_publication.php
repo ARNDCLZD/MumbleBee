@@ -56,7 +56,6 @@ class ModelePublication extends Connexion
   		$contenu = trim(htmlentities($contenu));
   		$description = trim(htmlentities($description));
   		$typeContenu = trim(htmlentities($typeContenu));
-  		
  		try {
       $sql = self::$bdd->prepare('INSERT INTO publication (Contenu, Intitule, Description, Prive, TypeContenu) VALUES (?, ?, ?, ?, ?)'); 
       $sql->execute([$contenu, $intitule, $description, $prive, $typeContenu]);
@@ -104,8 +103,6 @@ class ModelePublication extends Connexion
 		  echo("publication introuvable");
 	}
   }
-}
-
 }
 class ModelePublicationException extends Exception{}
 ?>

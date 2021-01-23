@@ -45,9 +45,6 @@ class ContPublication {
   }
   public function recherchePublication(){
     $var = $this->mod->recherchePublication();
-    foreach ($var as &$value) {
-      $this->vue->affiche_publication($value);
-    }
     
   }
   public function ajoutPublicationform(){

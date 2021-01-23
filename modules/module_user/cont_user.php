@@ -1,15 +1,17 @@
 <?php
 include_once 'modele_user.php';
 include_once 'vue_user.php';
+include_once 'modules/module_connexion/vue_connexion.php';
 
 
 class ContUser {
   private $vue;
   private $mod;
-  private $vueInd;
+  private $vueConnexion;
   public function __construct(){  
       
       $this->vue = new VueUser();
+      $this->vueConnexion = new VueConnexion();
       $this->mod = new ModeleUser();
       
 
@@ -35,6 +37,12 @@ class ContUser {
         case "recherche":
           $this->rechercheUser();
           break;
+        case "profile":
+          $this->showProfile();
+          break;
+        case "likes":
+          $this->showLikes();
+          break;
         default:
           $this->error();
       }    
@@ -42,14 +50,26 @@ class ContUser {
   public function error(){
     echo "Page introuvable";
     http_response_code(404);
-    die;
+  }
+  public function showLikes(){
+    $this->vueConnexion->deconnexion_form();
+  }
+  public function showProfile(){
+    if(isset($_SESSION['username'])){
+      try{
+        $user = $this->mod->getUserLogin();
+      }catch(ModeleUserException $e){  
+      }
+      $this->vue->showProfile($user);
+    }else{
+      $this->vueConnexion->connexion_form();
+    }  
   }
   public function rechercheUserform(){
     $this->vue->rechercheUser_form();
   }
   public function rechercheUser(){
     $var = $this->mod->rechercheUser();
-    var_dump($var);
     foreach ($var as &$value) {
       $this->vue->affiche_user($value);
     }

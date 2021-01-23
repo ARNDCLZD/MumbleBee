@@ -31,6 +31,9 @@ class ContHashtag {
         case "recherche":
           $this->rechercheHashtag();
           break;
+        case "getHashtags":
+          $this->getHashtags();
+          break;
         default:
           $this->error();
       }    

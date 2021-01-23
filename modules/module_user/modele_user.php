@@ -21,24 +21,28 @@ class ModeleUser extends Connexion
   }
   	public function getUserId() {
     	try{
-    		$id = $_GET['id'];
-    		$reponse = self::$bdd->prepare('SELECT * FROM utilisateur WHERE id = :id');
-    		$reponse->bindParam(":id",$id);
-    		$reponse->execute();
-    		$tab = $reponse->fetch(PDO::FETCH_ASSOC);
+			if(isset($_POST['id'])) {
+				$id = $_POST['id'];
+    			$reponse = self::$bdd->prepare('SELECT * FROM utilisateur WHERE id = :id');
+    			$reponse->bindParam(":id",$id);
+    			$reponse->execute();
+				$tab = $reponse->fetch(PDO::FETCH_ASSOC);
+			} else throw new ModeleUserException("Pas d'utilisateur connecté",1);
     	}catch(PDOException $p){
-      		echo("utilisateur introuvable");
+      		throw new ModeleUserException(1,"Utilisateur introuvable");
     	}
     	return $tab;
     }
 
     public function getUserLogin() {
     	try{
-    		$login = $_GET['Login'];
-    		$reponse = self::$bdd->prepare('SELECT * FROM utilisateur WHERE login = :login');
-    		$reponse->bindParam(":login",$login);
-    		$reponse->execute();
-    		$tab = $reponse->fetch(PDO::FETCH_ASSOC);
+			if(isset($_POST['username'])){
+				$login = $_POST['username'];
+    			$reponse = self::$bdd->prepare('SELECT * FROM utilisateur WHERE login = :login');
+    			$reponse->bindParam(":login",$login);
+    			$reponse->execute();
+				$tab = $reponse->fetch(PDO::FETCH_ASSOC);
+			} else throw new ModeleUserException("Pas d'utilisateur en POST",1);
     	}catch(PDOException $p){
       		echo("utilisateur introuvable");
     	}
@@ -55,7 +59,7 @@ class ModeleUser extends Connexion
  		try {
       		$sql = self::$bdd->prepare('INSERT INTO utilisateur (Login, Email, MotDePasse, Admin) VALUES (?, ?, ?, ?)'); 
       		$sql->execute([$login, $email, $motDePasse, $admin]);
-          echo "Insertion effectuée. <br>";
+        	echo "Insertion effectuée. <br>";
     	} catch(PDOException $e) {
       		print_r($bdd->errorInfo());
     	}

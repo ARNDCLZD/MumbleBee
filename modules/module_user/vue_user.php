@@ -1,7 +1,6 @@
 <?php
-include 'vue_generique.php';
 
-class VueUser extends VueGenerique{
+class VueUser{
 
   public function construct()
   {
@@ -11,6 +10,9 @@ class VueUser extends VueGenerique{
   public function affiche_user($value)
   {
     echo "Utilisateur : " . $value['Login'] . "<br>" . "Email : " . $value['Email'] . "<br>" . "Statut : " . $value['Admin'];
+  }
+  public function showProfile($user){
+    echo "j'en peux plus";
   }
   public function user_form(){
     readfile(getcwd().'/templates/registerForm.html');

@@ -1,7 +1,6 @@
 <?php
-include 'vue_generique.php';
 
-class VueHashtag extends VueGenerique{
+class VueHashtag{
 
   public function construct()
   {

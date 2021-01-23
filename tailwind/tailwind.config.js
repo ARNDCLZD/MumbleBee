@@ -22,6 +22,7 @@ module.exports = {
         jaune : colors.amber,
         noir : colors.warmGray,
       },
+      translate: ['active', 'group-hover'],
     },
   },
   variants: {
