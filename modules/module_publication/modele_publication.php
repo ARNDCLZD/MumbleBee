@@ -47,7 +47,7 @@ class ModelePublication extends Connexion
 	public function getCommentaireById(){
 		try{
 			$id = $_GET['id'];
-    		$reponse = self::$bdd->prepare('SELECT Login, Contenu FROM commentaire INNER JOIN utilisateur ON commentaire.IdAuteur = utilisateur.IdUtil WHERE commentaire.IdUtil = :id');
+    		$reponse = self::$bdd->prepare('SELECT IdAuteur, Contenu FROM commentaire WHERE IdPubli=:id');
     		$reponse->bindParam(":id",$id);
 			$reponse->execute();			
 			$tab = $reponse->fetchAll();
@@ -144,6 +144,24 @@ return $tab;
     }catch(PDOException $p){
 		  echo("publication introuvable");
     }
+  }
+  public function ajoutCommentaire(){
+	if(isset($_POST['texteCommentaire'])){
+		$commentaire = $_POST['texteCommentaire'];
+		$idAuteur = $_SESSION['id']['IdUtil'];
+		$idPubli = $_GET['id'];
+		$sql = self::$bdd->prepare('SELECT Login FROM utilisateur WHERE IdUtil=:id');
+		$sql->bindParam(':id',$idAuteur, PDO::PARAM_STR);
+		$sql->execute();
+		$nomAuteur = $sql->fetch(PDO::FETCH_ASSOC);
+		try {
+			$sql = self::$bdd->prepare('INSERT INTO commentaire (Contenu, IdAuteur, IdPubli, NomAuteur) VALUES (?, ?, ?, ?)'); 
+			$sql->execute([$commentaire,$idAuteur, $idPubli, $nomAuteur['Login']]);
+		} catch(PDOException $e) {
+			print_r($bdd->errorInfo());
+		}
+		echo "<meta http-equiv='refresh' content='0'>";
+	}
   }
 }
 class ModelePublicationException extends Exception{}

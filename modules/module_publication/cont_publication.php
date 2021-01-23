@@ -15,7 +15,6 @@ class ContPublication {
           $action = 'ajouter';
       }
         $this->trie($action);
-
   }
   function trie($action) {
     switch ($action) {
@@ -28,6 +27,7 @@ class ContPublication {
         case "afficher":
           $this->afficherPublication();
           break;
+
         case "supprimer":
           $this->supprimerPublication();
           break;
@@ -40,7 +40,7 @@ class ContPublication {
     http_response_code(404);
     die;
   }
- 
+
   public function recherchePublication(){
     $tab = $this->mod->recherchePublication();
     $this->vue->recherchePublication_form($tab);
@@ -55,13 +55,13 @@ class ContPublication {
   public function afficherPublication(){
     $publi = $this->mod->getPublicationId();
     $coms = $this->mod->getCommentaireById();
-    $this->vue->affiche_publication($publi, $coms);
-    
+    $id = $_GET['id'];
+    $this->vue->affiche_publication($publi, $coms, $id);
+    $this->mod->ajoutCommentaire();
   }
   public function supprimerPublication(){
     $this->mod->supprimerPublication();
     $this->vue->suppression();
   }
-
 }
 ?>
