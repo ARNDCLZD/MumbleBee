@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+session_start();
+?>
 <html>
 <head>
    <title>Mumble Bee - Accueil</title>
@@ -14,7 +17,6 @@
 </header>
 <main class="bg-jaune-300 flex flex-col flex-8">
 <?php
-   session_start();
    if(isset($_GET['module'])){
     $module = $_GET['module'];
     switch ($module){

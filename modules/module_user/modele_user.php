@@ -36,7 +36,7 @@ class ModeleUser extends Connexion
 
     public function getUserLogin() {
     	try{
-			if(isset($_SESSION['username'])){
+			if(isset($_SESSION['id']['IdUtil'])){
 				$login = $_SESSION['username'];
     			$reponse = self::$bdd->prepare('SELECT * FROM utilisateur WHERE login = :login');
     			$reponse->bindParam(":login",$login);

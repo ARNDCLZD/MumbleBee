@@ -24,7 +24,8 @@ class ModeleConnexion extends Connexion
         $admin->execute();
         $var = $admin->fetch(PDO::FETCH_ASSOC);
         $_SESSION['Admin'] = $var['Admin'];
-        echo 'connecté en tant que '. $username;
+        header("Location : http://localhost/MumbleBee/index.php");
+        exit;
       } else {
         echo 'pas bon' . "<br>" . $pwd;
       }
