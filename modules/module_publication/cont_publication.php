@@ -60,10 +60,21 @@ class ContPublication {
     $id = $_GET['id'];
     $this->vue->affiche_publication($publi, $coms, $id);
     $this->mod->ajoutCommentaire();
+    $this->mod->liker();
   }
   public function supprimerPublication(){
     $this->mod->supprimerPublication();
     $this->vue->suppression();
+<<<<<<< Updated upstream
+=======
+    $this->vue->suppressionPublication();
   }
+
+  public function supprimerCommentaire(){
+    $this->mod->supprimerCommentaire();
+>>>>>>> Stashed changes
+  }
+
+ 
 }
 ?>

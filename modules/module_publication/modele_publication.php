@@ -134,6 +134,23 @@ return $tab;
   		return $tab;
   	}
   }
+
+  public function liker(){
+	  if(isset($_POST['like'])){
+		  $idAuteur = $_SESSION['id'];
+		  $idPubli = $_GET['id'];
+		  try{
+			$sql = self::$bdd->prepare('INSERT INTO likepublication (IdAuteur,IdPubli) VALUES(:idAuteur, :idPubli)');
+			$sql->bindParam(':idAuteur',$idAuteur['IdUtil'], PDO::PARAM_INT);
+			$sql->bindParam(':idPubli',$idPubli, PDO::PARAM_INT);
+			$sql->execute();
+		}catch(PDOException $e){
+			print_r($bdd->errorInfo());
+		}
+	  }
+  }
+
+
   public function deletePublicationId(){
     try{
 		  $id = $_GET['id'];

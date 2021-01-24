@@ -21,6 +21,10 @@ class VuePublication{
 
       case 'texte':
         echo "Description : " . $value['Description'] . "<br>" . "Contenu : " . $value['Contenu'];
+        echo "<form action=\"index.php?module=publication&action=afficher&id=".$id."\"method=\"post\">";
+        echo "<input name=\"id\" style=\"display:none\" type=\"text\" value=\"like\">"; 
+        echo "<input name=\"like\" type=\"submit\" value=\"like\" placeholder=\"liker\">";
+        echo "</form>";
         break;
 
       case "image":
@@ -43,7 +47,6 @@ class VuePublication{
     echo "<p><input type=\"submit\" value=\"OK\"></p>";
     echo "</form>";
     foreach ($coms as $key => $val) {
-   
       echo "<br>";
       echo "Utilisateur: " . $val['IdAuteur'];
       echo "<br>";
@@ -56,6 +59,15 @@ class VuePublication{
     echo "<h1>Cet article a bien été supprimé</h1>";
   }
 
+<<<<<<< Updated upstream
+=======
+
+  public function suppressionCommentaire(){
+    echo "<h1>Ce commentaire a bien été supprimé</h1>";
+    
+  }
+
+>>>>>>> Stashed changes
 
 
   public function publication_form(){
