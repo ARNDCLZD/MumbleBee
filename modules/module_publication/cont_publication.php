@@ -63,7 +63,17 @@ class ContPublication {
   }
   public function supprimerPublication(){
     $this->mod->supprimerPublication();
+<<<<<<< Updated upstream
     $this->vue->suppression();
+=======
+    $this->vue->suppressionPublication();
+  }
+
+  public function supprimerCommentaire(){
+    $this->mod->supprimerCommentaire();
+    //$this->afficherPublication();
+     //$this->vue->suppressionCommentaire();
+>>>>>>> Stashed changes
   }
 }
 ?>

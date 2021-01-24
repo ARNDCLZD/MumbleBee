@@ -6,7 +6,7 @@ class ModeleUser extends Connexion
   public function __construct ()
   {
   }
-  public function getUsers(){
+ /* public function getUsers(){
     try{
     $reponse = self::$bdd->prepare('SELECT * FROM utilisateur');
     $reponse->execute();
@@ -18,7 +18,7 @@ class ModeleUser extends Connexion
     }catch(PDOException $p){
       echo("utilisateur introuvable");
     }
-  }
+  }*/
   	public function getUserId() {
     	try{
 			if(isset($_POST['id'])) {
@@ -90,6 +90,28 @@ class ModeleUser extends Connexion
   		}
   		return $tab;
   	}
+  }
+  public function supprimerUser(){
+	try {
+		$id = $_POST['IdUtil'];
+		$sql = self::$bdd->prepare('DELETE FROM utilisateur WHERE IdUtil = :id'); 
+		$sql->bindParam(":id",$id);
+		$sql->execute();
+		header('Location: index.php?module=user&action=afficherUser');
+	} catch(PDOException $e) {
+		print_r($bdd->errorInfo());
+	}
+  }
+
+  public function getUsers(){
+	try{
+		$sql = self::$bdd->prepare('SELECT * FROM utilisateur');
+		$sql->execute();
+		$tab = $sql->fetchAll();
+	}catch(PDOException $e){
+		print_r($bdd->errorInfo());
+	}
+	return $tab;
   }
 }
 class ModeleUserException extends Exception{}

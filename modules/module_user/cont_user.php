@@ -43,6 +43,12 @@ class ContUser {
         case "likes":
           $this->showLikes();
           break;
+        case "afficherUser":
+          $this->afficherUser();
+          break;
+        case "supprimerUser":
+          $this->supprimerUser();
+          break;
         default:
           $this->error();
       }    
@@ -79,5 +85,12 @@ class ContUser {
     $this->mod->ajoutUser();
   }
 
+  public function afficherUser(){
+    $tab = $this->mod->getUsers();
+    $this->vue->afficherUsers($tab);
+  }
+  public function supprimerUser(){
+    $this->mod->supprimerUser();
+  }
 }
 ?>

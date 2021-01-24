@@ -56,6 +56,13 @@ class VuePublication{
     echo "<h1>Cet article a bien été supprimé</h1>";
   }
 
+<<<<<<< Updated upstream
+=======
+  public function suppressionCommentaire(){
+    echo "<h1>Ce commentaire a bien été supprimé</h1>";
+    
+  }
+>>>>>>> Stashed changes
 
 
   public function publication_form(){
