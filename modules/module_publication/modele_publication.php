@@ -21,6 +21,7 @@ class ModelePublication extends Connexion
   }
 
   public function supprimerPublication(){
+	if(isset($_POST['supprimer'])){
 	try{
 		$id = $_POST['id'];
 		$reponse = self::$bdd->prepare('DELETE FROM publication WHERE IdPubli = :id');
@@ -28,6 +29,21 @@ class ModelePublication extends Connexion
 		$reponse->execute();
 		}catch(PDOException $p){
 		  echo("publication non supprimable");
+	}
+	}
+  }
+
+  
+  public function supprimerCommentaire(){
+	if(isset($_POST['supprimerCom'])){
+	try{
+		$val = $_POST['idCom'];
+		$reponse = self::$bdd->prepare('DELETE FROM commentaire WHERE IdCom = :val');
+		$reponse->bindParam(":val",$val);
+		$reponse->execute();
+		}catch(PDOException $p){
+		  echo("commentaire non supprimable");
+	}
 	}
   }
 
@@ -47,7 +63,7 @@ class ModelePublication extends Connexion
 	public function getCommentaireById(){
 		try{
 			$id = $_GET['id'];
-    		$reponse = self::$bdd->prepare('SELECT IdAuteur, Contenu FROM commentaire WHERE IdPubli=:id');
+    		$reponse = self::$bdd->prepare('SELECT * FROM commentaire WHERE IdPubli=:id');
     		$reponse->bindParam(":id",$id);
 			$reponse->execute();			
 			$tab = $reponse->fetchAll();
@@ -137,6 +153,57 @@ class ModelePublication extends Connexion
   		return $tab;
   	}
   }
+
+  public function liker(){
+	  if(isset($_POST['like'])){
+		  $idAuteur = $_SESSION['id'];
+		  $idPubli = $_GET['id'];
+		  try{
+			$sql = self::$bdd->prepare('INSERT INTO likepublication (IdAuteur,IdPubli) VALUES(:idAuteur, :idPubli)');
+			$sql->bindParam(':idAuteur',$idAuteur['IdUtil'], PDO::PARAM_INT);
+			$sql->bindParam(':idPubli',$idPubli, PDO::PARAM_INT);
+			$sql->execute();
+		}catch(PDOException $e){
+			print_r($bdd->errorInfo());
+		}
+	  }
+  }
+
+  public function signalerPublication(){
+	if(isset($_POST['raison'])){
+		$idAuteur = $_SESSION['id'];
+		$idPubli = $_GET['id'];
+		$raison = $_POST['raison'];
+		try{
+		  $sql = self::$bdd->prepare('INSERT INTO signalerpublication (IdAuteur,IdPubli, Motif) VALUES(:idAuteur, :idPubli, :raison)');
+		  $sql->bindParam(':idAuteur',$idAuteur['IdUtil'], PDO::PARAM_INT);
+		  $sql->bindParam(':idPubli',$idPubli, PDO::PARAM_INT);
+		  $sql->bindParam(':raison',$raison, PDO::PARAM_STR);
+		  $sql->execute();
+	  }catch(PDOException $e){
+		  print_r($bdd->errorInfo());
+	  }
+	}
+  }
+
+  public function signalerCommentaire(){
+	if(isset($_POST['raisonCom'])){
+		$idAuteur = $_SESSION['id'];
+		$idPubli = $_GET['id'];
+		$raison = $_POST['raisonCom'];
+		try{
+		  $sql = self::$bdd->prepare('INSERT INTO signalercommentaire (IdAuteur,IdPubli, Motif) VALUES(:idAuteur, :idPubli, :raisonCom)');
+		  $sql->bindParam(':idAuteur',$idAuteur['IdUtil'], PDO::PARAM_INT);
+		  $sql->bindParam(':idPubli',$idPubli, PDO::PARAM_INT);
+		  $sql->bindParam(':raisonCom',$raison, PDO::PARAM_STR);
+		  $sql->execute();
+	  }catch(PDOException $e){
+		  print_r($bdd->errorInfo());
+	  }
+	}
+  }
+
+
   public function deletePublicationId(){
     try{
 		  $id = $_GET['id'];

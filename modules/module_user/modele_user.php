@@ -32,7 +32,29 @@ class ModeleUser extends Connexion
       		throw new ModeleUserException(1,"Utilisateur introuvable");
     	}
     	return $tab;
-    }
+	}
+	
+	public function getReportsPublication(){
+		try{
+			$reponse = self::$bdd->prepare('SELECT * FROM signalerpublication');
+			$reponse->execute();
+			$tab = $reponse->fetchAll(PDO::FETCH_ASSOC);
+		}catch(PDOException $e){
+			print_r($e->getMessage());
+		}
+		return $tab;
+	}
+
+	public function getReportsCommentaire(){
+		try{
+    		$reponse = self::$bdd->prepare('SELECT * FROM signalercommentaire');
+    		$reponse->execute();
+			$tab = $reponse->fetchAll(PDO::FETCH_ASSOC);
+    	}catch(PDOException $e){
+			print_r($e->getMessage());    
+		}
+    	return $tab;
+	}
 
     public function getUserLogin() {
     	try{

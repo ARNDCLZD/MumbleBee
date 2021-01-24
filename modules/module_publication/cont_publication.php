@@ -33,6 +33,9 @@ class ContPublication {
         case "supprimer":
           $this->supprimerPublication();
           break;
+        case "supprimerCom":
+          $this->supprimerCommentaire();
+          break;
         default:
           $this->error();
       }    
@@ -61,10 +64,23 @@ class ContPublication {
       $this->vue->affiche_commentaire($val); 
     }
     $this->mod->ajoutCommentaire();
+    $this->mod->liker();
+    $this->mod->signalerPublication();
+    $this->mod->signalerCommentaire();
+    $this->mod->supprimerCommentaire();
   }
+
   public function supprimerPublication(){
     $this->mod->supprimerPublication();
     $this->vue->suppression();
+    $this->vue->suppressionPublication();
   }
+
+  public function supprimerCommentaire(){
+    $this->mod->supprimerCommentaire();
+    $this->vue->suppressionCommentaire();
+  }
+
+ 
 }
 ?>
