@@ -57,7 +57,8 @@ class ContUser {
   public function showProfile(){
     try{
       $user = $this->mod->getUserLogin();
-      $this->vue->showProfile($user);
+      $nbPubli = $this->mod->getNbPubli();
+      $this->vue->showProfile($user, $nbPubli);
     }catch(ModeleUserException $e){
       $this->vueConnexion->connexion_form();  
     }
@@ -70,7 +71,6 @@ class ContUser {
     foreach ($var as &$value) {
       $this->vue->affiche_user($value);
     }
-    
   }
   public function ajoutUserform(){
     $this->vue->user_form();

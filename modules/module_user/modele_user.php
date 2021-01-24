@@ -84,6 +84,22 @@ class ModeleUser extends Connexion
   		return $tab;
   	}
   }
+
+  public function getNbPubli(){
+	try{
+		$idUtil = $_GET['id'];
+		$sql = self::$bdd->prepare('SELECT count(*) FROM poster WHERE IdAuteur=:id');
+		$sql->bindParam(':id', $idUtil);
+  		$sql->execute();
+		
+		if(($tab = $sql->fetch(PDO::FETCH_ASSOC)) !== false) {
+		  return $tab;
+		}
+		throw new ModeleUserException("Fetch impossible.",2);
+		}catch(PDOException $p){
+		  echo("utilisateur introuvable");
+		}
+  }
 }
 class ModeleUserException extends Exception{}
 ?>
