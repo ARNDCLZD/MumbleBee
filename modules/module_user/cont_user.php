@@ -58,7 +58,9 @@ class ContUser {
     try{
       $user = $this->mod->getUserLogin();
       $nbPubli = $this->mod->getNbPubli();
-      $this->vue->showProfile($user, $nbPubli);
+      $nbLikesPubli = $this->mod->getNbLikesPubli();
+      $nbLikesAuteur = $this->mod->getNbLikesAuteur();
+      $this->vue->showProfile($user, $nbPubli, $nbLikesPubli, $nbLikesAuteur);
     }catch(ModeleUserException $e){
       $this->vueConnexion->connexion_form();  
     }

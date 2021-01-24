@@ -107,6 +107,35 @@ class ModeleUser extends Connexion
 		  echo("utilisateur introuvable");
 		}
   }
+
+  public function getNbLikesPubli(){
+	try{
+		$idUtil = $_GET['id'];
+		$sql = self::$bdd->prepare('SELECT count(*) FROM likepublication INNER JOIN poster ON likepublication.IdPubli = poster.IdPubli WHERE poster.IdAuteur = :id');
+		$sql->bindParam(':id', $idUtil);
+  		$sql->execute();
+		if(($tab = $sql->fetch(PDO::FETCH_ASSOC)) !== false) {
+		  return $tab;
+		}
+		throw new ModeleUserException("Fetch impossible.",2);
+		}catch(PDOException $p){
+		  echo("utilisateur introuvable");
+		}
+  }
+  public function getNbLikesAuteur(){
+	try{
+		$idUtil = $_GET['id'];
+		$sql = self::$bdd->prepare('SELECT count(*) FROM likepublication WHERE IdAuteur = :id');
+		$sql->bindParam(':id', $idUtil);
+  		$sql->execute();
+		if(($tab = $sql->fetch(PDO::FETCH_ASSOC)) !== false) {
+		  return $tab;
+		}
+		throw new ModeleUserException("Fetch impossible.",2);
+		}catch(PDOException $p){
+		  echo("utilisateur introuvable");
+		}
+  }
 }
 class ModeleUserException extends Exception{}
 ?>
