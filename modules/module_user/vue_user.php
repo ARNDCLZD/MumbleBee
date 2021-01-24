@@ -21,9 +21,12 @@ class VueUser{
     echo "<p><input type=\"submit\" value=\"OK\"></p>";
     echo "</form>";
   }
-  public function showProfile($user, $nbPubli){
+
+
+  public function showProfile($user, $nbPubli, $nbLikesPubli, $nbLikesAuteur){
     if($user['Admin']===1) $status="Administrateur";
     else $status="Utilisateur";
+
     echo "<div id=\"header\" class=\"grid flex-1 grid-cols-12 w-screen h-1/5 bg-noir-800 justify-items-center items-center border-1 border-jaune-300 max-h-24\">";
     echo "<div class=\"grid grid-cols-1 col-span-3 items-center justify-items-center\">";
     echo "<div>";
@@ -38,23 +41,23 @@ class VueUser{
     echo "<h1 class=\"text-3xl text-jaune-300 font-bold\">Publications</h1>";
     echo "</div>";
     echo "<div>";
-    echo "<h1 class=\"text-2xl text-jaune-300\">".$nbPubli['count(*)']."</h1>"; 
+    echo "<h1 class=\"text-2xl text-jaune-300\">".$nbPubli['count(*)']."</h1>";
     echo "</div>";
     echo "</div>";
     echo "<div class=\"grid grid-cols-1 col-span-2 items-center justify-items-center\">";
     echo "<div>";
-    echo "<h1 class=\"text-3xl text-jaune-300 font-bold\">Likes</h1>";
+    echo "<h1 class=\"text-3xl text-jaune-300 font-bold\">Likes Reçus</h1>";
     echo "</div>";
     echo "<div>";
-    echo "<h1 class=\"text-2xl text-jaune-300\">666</h1>";
+    echo "<h1 class=\"text-2xl text-jaune-300\">".$nbLikesPubli['count(*)']."</h1>";
     echo "</div>";
     echo "</div>";
     echo "<div class=\"grid grid-cols-1 col-span-2 items-center justify-items-center\">";
     echo "<div>";
-    echo "<h1 class=\"text-3xl text-jaune-300 font-bold\">Abonnés</h1>";
+    echo "<h1 class=\"text-3xl text-jaune-300 font-bold\">Contenus Likés</h1>";
     echo "</div>";
     echo "<div>";
-    echo "<h1 class=\"text-2xl text-jaune-300\">666</h1>";
+    echo "<h1 class=\"text-2xl text-jaune-300\">".$nbLikesAuteur['count(*)']."</h1>";
     echo "</div>";
     echo "</div>";
     echo "<div class=\"col-span-2 items-center justify-items-center\">";
