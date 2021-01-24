@@ -19,7 +19,7 @@
         const loader = document.getElementById("loader");
         hide(button);
         show(loader);
-        const res = await fetch(`http://localhost/MB/MumbleBee/api.php/?module=api&action=getHashtagsList&start=${start}&end=${end}`);
+        const res = await fetch(`http://localhost/MumbleBee/api.php/?module=api&action=getHashtagsList&start=${start}&end=${end}`);
         const data = await res.json();
         setTimeout(async ()=>{
             console.log("data : ", data);
@@ -42,7 +42,7 @@
         })
         if(button) show(button); 
         hide(loader);
-        const res2 = await fetch(`http://localhost/MB/MumbleBee/api.php/?module=api&action=getHashtagsList&start=${start+OFFSET}&end=${end+OFFSET}`);
+        const res2 = await fetch(`http://localhost/MumbleBee/api.php/?module=api&action=getHashtagsList&start=${start+OFFSET}&end=${end+OFFSET}`);
         const data2 = await res2.json();
         if(data2.length===0){
             console.log("here",carousel.nextElementSibling)
