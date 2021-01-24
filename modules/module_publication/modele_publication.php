@@ -82,11 +82,11 @@ class ModelePublication extends Connexion
 return $tab;
   }
   public function ajoutPublication(){
-  	$intitule = $_POST['intitule'];
-  	$contenu = $_POST['contenu'];
-  	$typeContenu = $_POST['typeContenu'];
-  	$description = $_POST['description'];
-  	$prive = isset($_POST['prive']) ? $_POST['prive'] : 0;
+  	$intitule = $_POST['Intitule'];
+  	$contenu = $_POST['Contenu'];
+  	$typeContenu = $_POST['TypeContenu'];
+  	$description = $_POST['Description'];
+  	$prive = isset($_POST['Prive']) ? $_POST['Prive'] : 0;
 
   	if($intitule !== "" && $description !== "" && $typeContenu !== "" && $contenu !== ""){
       $intitule = trim(htmlentities($intitule));
@@ -160,9 +160,10 @@ return $tab;
 		} catch(PDOException $e) {
 			print_r($bdd->errorInfo());
 		}
-		echo "<meta http-equiv='refresh' content='0'>";
+    echo "<meta http-equiv='refresh' content='0'>";
 	}
   }
+
 }
 class ModelePublicationException extends Exception{}
 ?>

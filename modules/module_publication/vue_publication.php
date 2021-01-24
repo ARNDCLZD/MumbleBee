@@ -65,34 +65,33 @@ class VuePublication{
 
   public function publication_form(){
     echo "<form action=\"index.php?module=publication&action=ajout\" method=\"post\">";
-    echo "<p>Titre : <input type=\"text\" name=\"intitule\" /></p>";
-    echo "<p>TypeContenu : <select id=\"choix\" name=\"typeContenu\">
+    echo "<p>Titre : <input type=\"text\" name=\"Intitule\" /></p>";
+    echo "<p>TypeContenu : <select id=\"choix\" name=\"TypeContenu\">
                               <option value =\"\" disabled selected hidden></option>
                               <option value=\"texte\">Texte</option>
                               <option value =\"image\">Image</option>
                               <option value =\"son\">Son</option>
                               <option value =\"video\">Video</option>
-                          </select></p></form>";
+                          </select></p>";
     ?>
     <script>
     window.addEventListener("load",function(){
       document.getElementById("choix").addEventListener("change",function(e){
         const inputs = {
-          texte :"<p>Contenu : <input type=\"text\" name=\"contenu\"/></p>",
+          texte :"<p>Contenu : <input type=\"text\" name=\"Contenu\"/></p>",
           image :"<p>placeholder</p>",
           son :"<p>placeholder</p>",
           video :"<p>placeholder</p>",
         }
         document.getElementById("contenu").innerHTML = inputs[e.target.value];
-
       });
     });
     </script>
     <?php
     echo "<div id=\"contenu\"></div>";
-    echo "<p>Description : <input type=\"text\" name=\"description\" /></p>";
-    echo "<p>Prive : <input type=\"checkbox\" name=\"prive\" value=\"1\" /></p>";
-    echo "<p><input type=\"submit\" value=\"OK\"></p>";
+    echo "<p>Description : <input type=\"text\" name=\"Description\" /></p>";
+    echo "<p>Prive : <input type=\"checkbox\" name=\"Prive\" value=\"1\" /></p>";
+    echo "<p><input id=\"bouton\" type=\"submit\" value=\"OK\"></p>";
     echo "</form>";
   }
   public function recherchePublication_form($tab){

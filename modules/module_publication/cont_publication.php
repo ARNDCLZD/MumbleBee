@@ -19,6 +19,9 @@ class ContPublication {
   function trie($action) {
     switch ($action) {
         case "ajouter":
+          $this->ajoutPublication_form();
+          break;
+        case "ajout":
           $this->ajoutPublication();
           break;
         case "rechercher":
@@ -27,7 +30,6 @@ class ContPublication {
         case "afficher":
           $this->afficherPublication();
           break;
-
         case "supprimer":
           $this->supprimerPublication();
           break;
@@ -44,12 +46,12 @@ class ContPublication {
   public function recherchePublication(){
     $tab = $this->mod->recherchePublication();
     $this->vue->recherchePublication_form($tab);
-   
   }
-
+  public function ajoutPublication_form(){
+    $this->vue->publication_form();
+  }
   public function ajoutPublication(){
     $this->mod->ajoutPublication();
-    $this->vue->publication_form();
   }
 
   public function afficherPublication(){
