@@ -35,7 +35,7 @@
                    MarqueurOfficiel,
             } = hashtag;
             const slide = document.createElement("div");
-            slide.innerHTML = Intitule;
+            slide.innerHTML = "<a href=\"index.php\">" + Intitule + "</a>";
             slide.className = "col-span-1 text-center h-80 bg-jaune-300 rounded-lg";
             carousel.appendChild(slide);
             console.log(carousel);
