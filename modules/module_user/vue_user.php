@@ -73,5 +73,18 @@ class VueUser{
     echo "</div>";
     readfile(getcwd().'/templates/listeDVPublications.html'); 
   }
+
+  public function showReportsPage($tabPublication, $tabCommentaire){
+    if(is_array($tabPublication) || is_object($tabPublication)){
+      foreach($tabPublication as $val){
+        echo "<a href=\"index.php?module=publication&action=afficher&id=".$val['IdPubli']."\">".$val['Motif']."</a>";
+      }
+    }
+  if(is_array($tabCommentaire) || is_object($tabCommentaire)){
+    foreach($tabCommentaire as $val){
+      echo "<a href=\"index.php?module=publication&action=afficher&id=".$val['IdPubli']."\">".$val['Motif']."</a>";
+    }
+  }
+}
 }
 ?>
