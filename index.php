@@ -12,7 +12,7 @@ session_start();
 </head>
 <body>
 <div class="flex flex-col h-screen w-screen">
-<header class="bg-noir-800 justify-center content-center flex-auto flex-shrink-0">
+<header class="p-5 bg-noir-800 justify-center content-center flex-auto flex-shrink-0">
    <?php include "templates/header/nav.php";?>
 </header>
 <main class="bg-jaune-300 flex flex-col flex-8">

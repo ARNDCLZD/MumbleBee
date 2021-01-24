@@ -83,10 +83,10 @@ class ModelePublication extends Connexion
 	  }
   }
   public function ajoutPublication(){
-	$contenu = basename($_FILES["Contenu"]["tmp_name"]);
+	//$contenu = basename($_FILES["Contenu"]["tmp_name"]);
 	$intitule = $_POST['Intitule'];
 	
-  	//$contenu = $_POST['Contenu'];
+  	$contenu = $_POST['Contenu'];
   	$typeContenu = $_POST['TypeContenu'];
   	$description = $_POST['Description'];
   	$prive = isset($_POST['Prive']) ? $_POST['Prive'] : 0;

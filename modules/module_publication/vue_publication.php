@@ -68,7 +68,7 @@ class VuePublication{
     window.addEventListener("load",function(){
       document.getElementById("choix").addEventListener("change",function(e){
         const inputs = {
-          texte :"<p>Contenu : <textarea class=\"w-2/5 h-2/5\" name=\"Contenu\"></textarea></p>",
+          texte :"<p>Contenu : <textarea name=\"Contenu\"></textarea></p>",
           image :"<p><input type=\"file\" name=\"Contenu\"</p>",
           son :"<p><input type=\"file\" name=\"Contenu\"</p>",
           video :"<p><input type=\"file\" name=\"Contenu\"</p>",

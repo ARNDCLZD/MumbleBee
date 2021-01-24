@@ -24,8 +24,7 @@ class ModeleConnexion extends Connexion
         $admin->execute();
         $var = $admin->fetch(PDO::FETCH_ASSOC);
         $_SESSION['Admin'] = $var['Admin'];
-        header("Location : http://localhost/MumbleBee/index.php");
-        exit;
+        header('Location: http://'.$_SERVER['HTTP_HOST'].'/MumbleBee/index.php');
       } else {
         echo 'pas bon' . "<br>" . $pwd;
       }
