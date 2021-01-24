@@ -43,6 +43,9 @@ class ContUser {
         case "likes":
           $this->showLikes();
           break;
+        case "reports":
+          $this->showReports();
+          break;  
         default:
           $this->error();
       }    
@@ -61,6 +64,16 @@ class ContUser {
       $this->vue->showProfile($user, $nbPubli);
     }catch(ModeleUserException $e){
       $this->vueConnexion->connexion_form();  
+    }
+  }
+
+  public function showReports(){
+    
+    if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1){
+      $tab = $this->mod->getReportsPublication();
+      $coms = $this->mod->getReportsCommentaire();
+      
+      $this->vue->showReportsPage($tab, $coms);
     }
   }
   public function rechercheUserform(){

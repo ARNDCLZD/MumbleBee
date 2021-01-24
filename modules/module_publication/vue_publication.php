@@ -9,7 +9,6 @@ class VuePublication{
   public function affiche_publication($value, $coms, $id)
   {
     if(isset($_SESSION['Admin']) && $_SESSION['Admin'] == 1){
-      echo $_SESSION['Admin'];
       echo "<form method=\"POST\" action=\"index.php?module=publication&action=supprimer&id=\"".$_GET['id']."\">";
       echo "<input name=\"supprimer\" type=\"submit\" value=\"supprimer\">"; 
       echo "<input name=\"id\" style=\"display:none\" type=\"text\" value=\"".$_GET['id']."\">"; 
@@ -24,6 +23,17 @@ class VuePublication{
         echo "<form action=\"index.php?module=publication&action=afficher&id=".$id."\"method=\"post\">";
         echo "<input name=\"id\" style=\"display:none\" type=\"text\" value=\"like\">"; 
         echo "<input name=\"like\" type=\"submit\" value=\"like\" placeholder=\"liker\">";
+        echo "</form>";
+        echo "<form action=\"index.php?module=publication&action=afficher&id=".$id."\"method=\"post\">";
+        echo "<label for=\"signaler-select\">Choisissez la raison du signalement de la publication:</label>     
+        <select name=\"raison\" id=\"signaler-select\"> 
+            <option value=\"raison-signalement\">Please choose an option</option>
+            <option value=\"racisme\">Racisme</option>
+            <option value=\"nudité\">Nudité</option>
+            <option value=\"violence\">Violence</option>
+            <option value=\"toxicité\">Toxicité</option>
+        </select>";
+        echo "<input name=\"like\" type=\"submit\" value=\"Signaler\" placeholder=\"signaler\">";
         echo "</form>";
         break;
 
@@ -50,8 +60,24 @@ class VuePublication{
       echo "<br>";
       echo "Utilisateur: " . $val['IdAuteur'];
       echo "<br>";
-      echo "Commentaire: " . $val['Contenu'];
-      echo "<br>";
+      echo "Commentaire: " . $val['Contenu'].
+      "<label for=\"signaler-select\">Choisissez la raison du signalement du commentaire:</label>     
+      <p><select name=\"raisonCom\" id=\"signaler-select\"> 
+          <option value=\"raison-signalement\">Please choose an option</option>
+          <option value=\"racisme\">Racisme</option>
+          <option value=\"nudité\">Nudité</option>
+          <option value=\"violence\">Violence</option>
+          <option value=\"toxicité\">Toxicité</option>
+      </select>";
+      echo "<input name=\"signaler\" type=\"submit\" value=\"Signaler\" placeholder=\"signaler\"></p>";
+      echo "</form>";
+      if(isset($_SESSION['Admin']) && $_SESSION['Admin'] == 1){
+        echo "<form action=\"index.php?module=publication&action=afficher&id=".$id."\" method=\"post\">";
+        echo "<input name=\"supprimerCom\" type=\"submit\" value=\"supprimerCommentaire\">"; 
+        echo "<input name=\"id\" style=\"display:none\" type=\"text\" value=\"".$id."\">"; 
+        echo "<input name=\"idCom\" style=\"display:none\" type=\"text\" value=\"".$val['IdCom']."\">";
+        echo "</form>";
+      }
     }
   }
 
@@ -59,15 +85,13 @@ class VuePublication{
     echo "<h1>Cet article a bien été supprimé</h1>";
   }
 
-<<<<<<< Updated upstream
-=======
+
 
   public function suppressionCommentaire(){
     echo "<h1>Ce commentaire a bien été supprimé</h1>";
     
   }
 
->>>>>>> Stashed changes
 
 
   public function publication_form(){
@@ -111,5 +135,7 @@ class VuePublication{
       echo "<h2>Pas de résultat :/</h2>";
     }
   }
+
+  
 }
 ?>
