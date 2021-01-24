@@ -47,7 +47,7 @@ class ModelePublication extends Connexion
 	public function getCommentaireById(){
 		try{
 			$id = $_GET['id'];
-    		$reponse = self::$bdd->prepare('SELECT IdAuteur, Contenu FROM commentaire WHERE IdPubli=:id');
+    		$reponse = self::$bdd->prepare('SELECT IdAuteur,IdPubli, Contenu FROM commentaire WHERE IdPubli=:id');
     		$reponse->bindParam(":id",$id);
 			$reponse->execute();			
 			$tab = $reponse->fetchAll();
@@ -163,6 +163,23 @@ return $tab;
     echo "<meta http-equiv='refresh' content='0'>";
 	}
   }
+
+  public function supprimerCommentaire(){
+	try {
+		$id = $_POST['IdPubli'];
+		$idAut = $_POST['IdAuteur'];
+		$cont = $_POST['Contenu'];
+		$sql = self::$bdd->prepare('DELETE FROM commentaire WHERE IdPubli = :id AND IdAuteur = :idAut AND Contenu = :contenu'); 
+		$sql->bindParam(":id",$id);
+		$sql->bindParam(":idAut",$idAut);
+		$sql->bindParam(":contenu",$cont);
+		$sql->execute();
+		header('Location: index.php?module=publication&action=afficher&id='.$id);
+	} catch(PDOException $e) {
+		print_r($bdd->errorInfo());
+	}
+  }
+
 
 }
 class ModelePublicationException extends Exception{}

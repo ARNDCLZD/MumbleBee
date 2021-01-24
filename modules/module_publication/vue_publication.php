@@ -10,7 +10,7 @@ class VuePublication{
   {
     if(isset($_SESSION['Admin']) && $_SESSION['Admin'] == 1){
       echo $_SESSION['Admin'];
-      echo "<form method=\"POST\" action=\"index.php?module=publication&action=supprimer&id=\"".$_GET['id']."\">";
+      echo "<form method=\"POST\" action=\"index.php?module=publication&action=supprimerPublication&id=\"".$_GET['id']."\">";
       echo "<input name=\"supprimer\" type=\"submit\" value=\"supprimer\">"; 
       echo "<input name=\"id\" style=\"display:none\" type=\"text\" value=\"".$_GET['id']."\">"; 
       echo "</form>";
@@ -45,22 +45,37 @@ class VuePublication{
     echo "<p><input type=\"submit\" value=\"OK\"></p>";
     echo "</form>";
     foreach ($coms as $key => $val) {
-   
+      $idAuteur =  $val['IdAuteur'];
+      $contenu = $val['Contenu'];
+      $idPubli = $val['IdPubli'];
       echo "<br>";
-      echo "Utilisateur: " . $val['IdAuteur'];
+      echo "Utilisateur: " . $idAuteur;
       echo "<br>";
-      echo "Commentaire: " . $val['Contenu'];
+      echo "Commentaire: " . $contenu;
       echo "<br>";
-      
+      if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1){
+        echo "<form action=\"index.php?module=publication&action=supprimerCommentaire\" method=\"post\">";
+        echo "<p>Commentaire : <input type=\"text\" name=\"texteCommentaire\" /></p>";
+        echo "<p><input type=\"submit\" value=\"OK\"></p>";
+        echo "<input name=\"IdAuteur\" style=\"display:none\" type=\"text\" value=\"".$idAuteur."\">"; 
+        echo "<input name=\"Contenu\" style=\"display:none\" type=\"text\" value=\"".$contenu."\">"; 
+        echo "<input name=\"IdPubli\" style=\"display:none\" type=\"text\" value=\"".$idPubli."\">"; 
+        echo "</form>";
+      }
      
     
     }
   }
 
-  public function suppression(){
+  public function suppressionPublication(){
     echo "<h1>Cet article a bien été supprimé</h1>";
   }
 
+  public function suppressionCommentaire(){
+    echo "<h1>Ce commentaire a bien été supprimé</h1>";
+    
+
+  }
 
 
   public function publication_form(){
