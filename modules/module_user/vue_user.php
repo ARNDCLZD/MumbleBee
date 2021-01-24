@@ -23,14 +23,15 @@ class VueUser{
   }
 
   public function showProfile($user, $nbPubli){
-    
+    if($user['Admin']===1) $status="Administrateur";
+    else $status="Utilisateur";
     echo "<div id=\"header\" class=\"grid flex-1 grid-cols-12 w-screen h-1/5 bg-noir-800 justify-items-center items-center border-1 border-jaune-300 max-h-24\">";
     echo "<div class=\"grid grid-cols-1 col-span-3 items-center justify-items-center\">";
     echo "<div>";
-    echo "<h1 class=\"text-4xl text-jaune-300 font-bold\">username</h1>";
+    echo "<h1 class=\"text-4xl text-jaune-300 font-bold\">".$user['Login']."</h1>";
     echo "</div>";
     echo "<div>";
-    echo "<h1 class=\"text-3xl text-jaune-300\">".$user['Login']."</h1>";
+    echo "<h1 class=\"text-3xl text-jaune-300\">".$status."</h1>";
     echo "</div>";
     echo "</div>";
     echo "<div class=\"grid grid-cols-1 col-span-2 items-center justify-items-center\">";
