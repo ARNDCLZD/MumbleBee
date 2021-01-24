@@ -30,7 +30,6 @@
    $nomModule = "Mod".$module;
    new $nomModule(); 
    }
-   readfile(getcwd().'/templates/listeDVHashtag.html'); 
 ?>
 </main>
 <?php include 'templates/footer.php'; ?>

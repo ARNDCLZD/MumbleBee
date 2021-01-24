@@ -53,12 +53,13 @@ class ContPublication {
   public function ajoutPublication(){
     $this->mod->ajoutPublication();
   }
-
   public function afficherPublication(){
     $publi = $this->mod->getPublicationId();
     $coms = $this->mod->getCommentaireById();
-    $id = $_GET['id'];
-    $this->vue->affiche_publication($publi, $coms, $id);
+    $this->vue->affiche_publication($publi, $_GET['id']);
+    foreach ($coms as $key => $val) {
+      $this->vue->affiche_commentaire($val); 
+    }
     $this->mod->ajoutCommentaire();
   }
   public function supprimerPublication(){

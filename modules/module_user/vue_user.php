@@ -21,7 +21,6 @@ class VueUser{
     echo "<p><input type=\"submit\" value=\"OK\"></p>";
     echo "</form>";
   }
-
   public function showProfile($user, $nbPubli){
     if($user['Admin']===1) $status="Administrateur";
     else $status="Utilisateur";
@@ -69,6 +68,7 @@ class VueUser{
     echo "</div>";
     echo "</div>";
     echo "</div>";
+    readfile(getcwd().'/templates/listeDVPublications.html'); 
   }
 }
 ?>

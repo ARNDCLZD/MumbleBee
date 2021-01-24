@@ -69,21 +69,24 @@ class ModelePublication extends Connexion
     	}
 	return $tab;
   }
-  public function getPublicationByAuthorId(){
-	try{
-		$id = $_GET['idUser'];
-		$reponse = self::$bdd->prepare('SELECT * FROM poster WHERE IdAuteur = :idUser');
-		$reponse->bindParam(":idUser",$id);
+  public function getPublicationsByAuthorId($id,$start,$end){
+	  var_dump($id);
+	  try{
+		$reponse = self::$bdd->prepare('SELECT intitule FROM publication NATURAL JOIN poster WHERE idAuteur=:id LIMIT :start,:end');
+		$reponse->bindParam(":id",$id);
+		$reponse->bindParam(":start",$start,PDO::PARAM_INT);
+		$reponse->bindParam(":end",$end,PDO::PARAM_INT);
 		$reponse->execute();
-		$tab = $reponse->fetch(PDO::FETCH_ASSOC);
-	}catch(PDOException $p){
-		  echo("publication introuvable");
-	}
-return $tab;
+		return $reponse->fetchAll();
+	  }catch(PDOException $e){
+		  print_r($e->getMessage());
+	  }
   }
   public function ajoutPublication(){
-  	$intitule = $_POST['Intitule'];
-  	$contenu = $_POST['Contenu'];
+	$contenu = basename($_FILES["Contenu"]["tmp_name"]);
+	$intitule = $_POST['Intitule'];
+	
+  	//$contenu = $_POST['Contenu'];
   	$typeContenu = $_POST['TypeContenu'];
   	$description = $_POST['Description'];
   	$prive = isset($_POST['Prive']) ? $_POST['Prive'] : 0;
