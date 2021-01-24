@@ -6,7 +6,7 @@ class VuePublication{
     parent::construct();
   }
 
-  public function affiche_publication($value, $coms, $id)
+  public function affiche_publication($value, $id)
   {
     if(isset($_SESSION['Admin']) && $_SESSION['Admin'] == 1){
       echo $_SESSION['Admin'];
@@ -18,23 +18,18 @@ class VuePublication{
     }
     echo "<h1> " . $value['Intitule'] . "</h1>";
     switch ($value['TypeContenu']){
-
       case 'texte':
         echo "Description : " . $value['Description'] . "<br>" . "Contenu : " . $value['Contenu'];
         break;
-
       case "image":
         echo '<img src="data:image/jpeg;base64,'.base64_encode( $value['Contenu'] ).'"/>'. "<br>" . "Description : " . $value['Description'];
         break;
-
       case "son":
         echo '<audio controls src="data:audio/mp3;base64,'. base64_encode($value['Contenu']) . '"></audio>'. "<br>" . "Description : " . $value['Description'];
         break;
-
       case "video":
         echo '<video controls width="200px" src="data:video/mp4;base64,'. base64_encode($value['Contenu']) .'"></video>'. "<br>" ."Description : " . $value['Description'];
         break;
-
       default:
         echo "Impossible d'afficher la publication";
     }
@@ -42,24 +37,24 @@ class VuePublication{
     echo "<p>Commentaire : <input type=\"text\" name=\"texteCommentaire\" /></p>";
     echo "<p><input type=\"submit\" value=\"OK\"></p>";
     echo "</form>";
-    foreach ($coms as $key => $val) {
-   
-      echo "<br>";
-      echo "Utilisateur: " . $val['IdAuteur'];
-      echo "<br>";
-      echo "Commentaire: " . $val['Contenu'];
-      echo "<br>";
-    }
+    echo "<button class=\"bg-noir-800\">ça match</button>";
   }
 
   public function suppression(){
     echo "<h1>Cet article a bien été supprimé</h1>";
   }
 
-
+  public function affiche_commentaire($com){
+      echo "<br>";
+      echo "Utilisateur: " . $com['IdAuteur'];
+      echo "<br>";
+      echo "Commentaire: " . $com['Contenu'];
+      echo "<br>";
+      echo "<button class=\"bg-noir-800\">ça match</button>";
+  }
 
   public function publication_form(){
-    echo "<form action=\"index.php?module=publication&action=ajout\" method=\"post\">";
+    echo "<form action=\"index.php?module=publication&action=ajout\" method=\"post\" enctype=\"multipart/form-data\">";
     echo "<p>Titre : <input type=\"text\" name=\"Intitule\" /></p>";
     echo "<p>TypeContenu : <select id=\"choix\" name=\"TypeContenu\">
                               <option value =\"\" disabled selected hidden></option>
@@ -88,6 +83,7 @@ class VuePublication{
     echo "<p>Prive : <input type=\"checkbox\" name=\"Prive\" value=\"1\" /></p>";
     echo "<p><input id=\"bouton\" type=\"submit\" value=\"OK\"></p>";
     echo "</form>";
+
   }
   public function recherchePublication_form($tab){
     if(!empty($tab)){
