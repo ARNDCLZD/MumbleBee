@@ -47,7 +47,6 @@ class ContApi {
     echo json_encode($hashtags);
   }
   public function getPublicationsByAuthorId(){
-    var_dump($_GET['id']);
     $publications = $this->modPublication->getPublicationsByAuthorId($_GET['id'],$_GET['start'],$_GET['end']);
     echo json_encode($publications);
   }

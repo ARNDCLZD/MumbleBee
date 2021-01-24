@@ -3,6 +3,8 @@
     let start=0;
     let end = start+OFFSET;
     let hasMadeFirstRequest = false;
+    var url = new URL(window.location.href);
+    let id = url.searchParams.get("id");
     window.addEventListener("load",fetchPublications);
     function hide(element){
         element.style.display="none";
@@ -19,7 +21,7 @@
         const loader = document.getElementById("loader");
         hide(button);
         show(loader);
-        const res = await fetch(`http://localhost/MumbleBee/api.php/?module=api&action=getPublicationsByAuthorId&start=${start}&end=${end}`);
+        const res = await fetch(`http://localhost/MumbleBee/api.php/?module=api&action=getPublicationsByAuthorId&id=${id}&start=${start}&end=${end}`);
         const data = await res.json();
         setTimeout(async ()=>{
             console.log("data : ", data);
@@ -38,14 +40,17 @@
                    TypeContenu,
             } = publication;
             const slide = document.createElement("div");
-            slide.innerHTML = "<a href=\"index.php\">" + Intitule + "</a>";
+            slide.innerHTML = Intitule;
             slide.className = "col-span-1 text-center h-80 bg-jaune-300 rounded-lg";
-            carousel.appendChild(slide);
-            console.log(carousel);
+            const link = document.createElement("a");
+            link.href = `index?module=publication&action=afficher&id=${IdPubli}`;
+            link.appendChild(slide);
+            carousel.appendChild(link);
+            console.log(slide);
         })
         if(button) show(button); 
         hide(loader);
-        const res2 = await fetch(`http://localhost/MumbleBee/api.php/?module=api&action=getPublicationsByAuthorId&start=${start+OFFSET}&end=${end+OFFSET}`);
+        const res2 = await fetch(`http://localhost/MumbleBee/api.php/?module=api&action=getPublicationsByAuthorId&id=${id}&start=${start+OFFSET}&end=${end+OFFSET}`);
         const data2 = await res2.json();
         if(data2.length===0){
             console.log("here",carousel.nextElementSibling)

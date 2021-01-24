@@ -70,14 +70,14 @@ class ModelePublication extends Connexion
 	return $tab;
   }
   public function getPublicationsByAuthorId($id,$start,$end){
-	  var_dump($id);
 	  try{
-		$reponse = self::$bdd->prepare('SELECT intitule FROM publication NATURAL JOIN poster WHERE idAuteur=:id LIMIT :start,:end');
-		$reponse->bindParam(":id",$id);
+		$reponse = self::$bdd->prepare('SELECT * FROM publication NATURAL JOIN poster WHERE idAuteur=:id LIMIT :start,:end');
+		$reponse->bindParam(":id",$id,PDO::PARAM_INT);
 		$reponse->bindParam(":start",$start,PDO::PARAM_INT);
 		$reponse->bindParam(":end",$end,PDO::PARAM_INT);
 		$reponse->execute();
-		return $reponse->fetchAll();
+		$tab = $reponse->fetchAll();
+		return $tab;
 	  }catch(PDOException $e){
 		  print_r($e->getMessage());
 	  }

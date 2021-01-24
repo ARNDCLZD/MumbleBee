@@ -35,9 +35,12 @@
                    MarqueurOfficiel,
             } = hashtag;
             const slide = document.createElement("div");
-            slide.innerHTML = "<a href=\"index.php\">" + Intitule + "</a>";
+            slide.innerHTML = Intitule;
             slide.className = "col-span-1 text-center h-80 bg-jaune-300 rounded-lg";
-            carousel.appendChild(slide);
+            const link = document.createElement("a");
+            link.href = "index?module=";
+            link.appendChild(slide);
+            carousel.appendChild(link);
             console.log(carousel);
         })
         if(button) show(button); 
