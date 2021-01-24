@@ -24,9 +24,9 @@ class VuePublication{
         echo "<input name=\"like\" type=\"submit\" value=\"like\" placeholder=\"liker\">";
         echo "</form>";
         echo "<form action=\"index.php?module=publication&action=afficher&id=".$id."\"method=\"post\">";
-        echo "<label for=\"signaler-select\">Choisissez la raison du signalement de la publication:</label>     
+        echo "<label for=\"signaler-select\">Raison du signalement:</label>     
         <select name=\"raison\" id=\"signaler-select\"> 
-            <option value=\"raison-signalement\">Please choose an option</option>
+            <option value=\"\" disabled selected hidden></option>
             <option value=\"racisme\">Racisme</option>
             <option value=\"nudité\">Nudité</option>
             <option value=\"violence\">Violence</option>
@@ -57,9 +57,9 @@ class VuePublication{
       echo "Utilisateur: " . $val['IdAuteur'];
       echo "<br>";
       echo "Commentaire: " . $val['Contenu'].
-      "<label for=\"signaler-select\">Choisissez la raison du signalement du commentaire:</label>     
+      "<label for=\"signaler-select\">Raison du signalement du commentaire:</label>     
       <p><select name=\"raisonCom\" id=\"signaler-select\"> 
-          <option value=\"raison-signalement\">Please choose an option</option>
+          <option value=\"\" disabled selected hidden></option>
           <option value=\"racisme\">Racisme</option>
           <option value=\"nudité\">Nudité</option>
           <option value=\"violence\">Violence</option>
