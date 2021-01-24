@@ -23,12 +23,8 @@ class VueUser{
     echo "<p>Login : <input type=\"search\" name=\"login\"></p>";
     echo "<p><input type=\"submit\" value=\"OK\"></p>";
     echo "</form>";
-<<<<<<< Updated upstream
+
   } 
-=======
-  }
-
-
   public function showProfile($user, $nbPubli, $nbLikesPubli, $nbLikesAuteur){
     if($user['Admin']===1) $status="Administrateur";
     else $status="Utilisateur";
@@ -91,7 +87,5 @@ class VueUser{
       echo "<a href=\"index.php?module=publication&action=afficher&id=".$val['IdPubli']."\">".$val['Motif']."</a>";
     }
   }
-}
->>>>>>> Stashed changes
 }
 ?>
