@@ -15,7 +15,7 @@ class VueUser{
     readfile(getcwd().'/templates/profilePage.html');
   }
   public function user_form(){
-    readfile(getcwd().'/templates/registerForm.html');
+    include_once 'templates/registerForm.php';
 
   }
   public function rechercheUser_form(){

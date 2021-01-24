@@ -16,8 +16,6 @@ class VuePublication{
       echo "</form>";
 
     }
-
-    
     echo "<h1> " . $value['Intitule'] . "</h1>";
     switch ($value['TypeContenu']){
 
@@ -51,9 +49,6 @@ class VuePublication{
       echo "<br>";
       echo "Commentaire: " . $val['Contenu'];
       echo "<br>";
-      
-     
-    
     }
   }
 
@@ -78,17 +73,17 @@ class VuePublication{
     window.addEventListener("load",function(){
       document.getElementById("choix").addEventListener("change",function(e){
         const inputs = {
-          texte :"<p>Contenu : <input type=\"text\" name=\"Contenu\"/></p>",
-          image :"<p>placeholder</p>",
-          son :"<p>placeholder</p>",
-          video :"<p>placeholder</p>",
+          texte :"<p>Contenu : <textarea class=\"w-2/5 h-2/5\" name=\"Contenu\"></textarea></p>",
+          image :"<p><input type=\"file\" name=\"Contenu\"</p>",
+          son :"<p><input type=\"file\" name=\"Contenu\"</p>",
+          video :"<p><input type=\"file\" name=\"Contenu\"</p>",
         }
-        document.getElementById("contenu").innerHTML = inputs[e.target.value];
+        document.getElementById("Contenu").innerHTML = inputs[e.target.value];
       });
     });
     </script>
     <?php
-    echo "<div id=\"contenu\"></div>";
+    echo "<div id=\"Contenu\"></div>";
     echo "<p>Description : <input type=\"text\" name=\"Description\" /></p>";
     echo "<p>Prive : <input type=\"checkbox\" name=\"Prive\" value=\"1\" /></p>";
     echo "<p><input id=\"bouton\" type=\"submit\" value=\"OK\"></p>";
@@ -104,6 +99,5 @@ class VuePublication{
       echo "<h2>Pas de résultat :/</h2>";
     }
   }
-
 }
 ?>

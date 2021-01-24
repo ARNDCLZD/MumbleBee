@@ -4,7 +4,7 @@
         <div class="text-noir-800"><?php readfile(getcwd().'/templates/header/logo.html'); ?></div>
         <p class="mt-2 text-center text-noir-800">
           Pas encore
-          <a href="#" class="font-bold text-noir-800 hover:text-jaune-600">
+          <a href="index.php?module=user&action=ajouter" class="font-bold text-noir-800 hover:text-jaune-600">
             enregistré 
           </a>
           ?

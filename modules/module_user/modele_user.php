@@ -51,8 +51,15 @@ class ModeleUser extends Connexion
   public function ajoutUser(){
   	$login = $_POST['login'];
   	$email = $_POST['email'];
-  	$motDePasse = $_POST['motDePasse'];
-  	$admin = $_POST['admin'];
+	$motDePasse = $_POST['motDePasse'];
+	$confPwd = $_POST['confPwd'];
+	if($motDePasse!==$confPwd) {
+		include_once "templates/registerForm.php";
+		echo "Mots de passe différents.";
+	}
+	else{
+	if(isset($_POST['admin']))$admin = $_POST['admin'];
+	else $admin=0;
 
   	if($login !== "" && $email !== "" && $motDePasse !== ""){	
       $motDePasse = password_hash($motDePasse, PASSWORD_DEFAULT);	
@@ -68,7 +75,7 @@ class ModeleUser extends Connexion
     {
       throw new ModeleUserException("Champ d'insertion nul.", 4);
     }
-
+	}
   }
   public function rechercheUser(){
   	$login = $_POST['login'];
