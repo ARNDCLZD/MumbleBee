@@ -72,8 +72,7 @@ class ContPublication {
 
   public function supprimerPublication(){
     $this->mod->supprimerPublication();
-    $this->vue->suppression();
-    $this->vue->suppressionPublication();
+    $this->vue->suppressionPublication_form();
   }
 
   public function supprimerCommentaire(){
