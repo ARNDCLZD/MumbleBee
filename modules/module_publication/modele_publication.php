@@ -160,16 +160,41 @@ class ModelePublication extends Connexion
     {
       throw new ModelePublicationException("Champ d'insertion nul.", 4);
 	}
-	if(isset($_SESSION['id'])){
-		$idAuteur = $_SESSION['id']['IdUtil'];
-        $sql = self::$bdd->prepare('SELECT IdPubli FROM publication WHERE Intitule=:intitule');
-        $sql->bindParam(':intitule',$intitule, PDO::PARAM_STR);
-        $sql->execute();
-        $idPubli = $sql->fetch(PDO::FETCH_ASSOC);
-		$sql = self::$bdd->prepare('INSERT INTO poster VALUES (?,?)');
-        $sql->execute([$idAuteur, $idPubli['IdPubli']]);
+
+	$idAuteur = $_SESSION['id']['IdUtil'];
+    $sql = self::$bdd->prepare('SELECT IdPubli FROM publication WHERE Intitule=:intitule');
+    $sql->bindParam(':intitule',$intitule, PDO::PARAM_STR);
+    $sql->execute();
+    $idPubli = $sql->fetch(PDO::FETCH_ASSOC);
+	$sql = self::$bdd->prepare('INSERT INTO poster VALUES (?,?)');
+	$sql->execute([$idAuteur, $idPubli['IdPubli']]);
+		
+	preg_match_all('/#([^# ]+)/', $description, $tags);
+	foreach($tags[0] as $val){
+		$sql = self::$bdd->prepare('SELECT * FROM hashtag WHERE Intitule=:intitule');
+        $sql->bindParam(':intitule',$val, PDO::PARAM_STR);
+		$sql->execute();
+		$bool = $sql->fetchAll();
+		if($bool !== ""){
+			$sql = self::$bdd->prepare('INSERT INTO hashtag (Intitule,MarqueurOfficiel) VALUES(:intitule, 0)');
+			$sql->bindParam(':intitule', $val, PDO::PARAM_STR);
+			$sql->execute();
+		}
+		
+		$sql = self::$bdd->prepare('SELECT * FROM hashtag WHERE Intitule=:intitule');
+        $sql->bindParam(':intitule',$val, PDO::PARAM_STR);
+		$sql->execute();
+		$res = $sql->fetchAll();
+
+		$sql = self::$bdd->prepare('INSERT INTO taguer (IdHashtag, IdPubli) VALUES(:idHahstag, :idPubli)');
+		$sql->bindParam(':idHahstag', $res[0]['IdHashtag'], PDO::PARAM_INT);
+		$sql->bindParam(':idPubli', $idPubli['IdPubli'], PDO::PARAM_INT);
+		$sql->execute();
 	}
 
+	
+	// On ajoute une insertion dans hashtags si dans description il y a un hashtag
+	// On ajoute toujours dans taguer une ligne correspondant à une mention de hashtag
   }
   public function recherchePublication(){
 	if(isset($_POST['intitule'])){
