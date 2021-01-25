@@ -45,9 +45,7 @@ class VuePublication{
 
   public function affiche_commentaire($com){
       echo "<br>";
-      echo "Utilisateur: " . $com['IdAuteur'];
-      echo "<br>";
-      echo "Commentaire: " . $com['Contenu'];
+      echo $com['NomAuteur']." : ".$com['Contenu'];
       echo "<br>";
       echo "<button class=\"bg-noir-800\">ça match</button>";
       if($_SESSION['Admin'] == 0){
