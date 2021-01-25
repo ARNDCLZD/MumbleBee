@@ -24,7 +24,8 @@ class VueUser{
 
 
   public function showProfile($user, $nbPubli, $nbLikesPubli, $nbLikesAuteur){
-    if($user['Admin']===1) $status="Administrateur";
+    var_dump($user['Admin']);
+    if($user['Admin']==1) $status="Administrateur";
     else $status="Utilisateur";
 
     echo "<div id=\"header\" class=\"grid flex-1 grid-cols-2 md:grid-cols-12 w-screen bg-noir-800 justify-items-center items-center border-t-4 md:max-h-24 border-jaune-300\">";
