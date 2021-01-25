@@ -76,13 +76,23 @@ class VueUser{
   }
   public function showReportsPage($tabPublication, $tabCommentaire){
     if(is_array($tabPublication) || is_object($tabPublication)){
+      echo "<p> Signalements Publications : </p>";
       foreach($tabPublication as $val){
         echo "<a href=\"index.php?module=publication&action=afficher&id=".$val['IdPubli']."\">".$val['Motif']."</a>";
+        echo "<form action=\"index.php?module=user&action=reports\" method=\"post\">";
+        echo "<input name=\"supprimer\" type=\"submit\" value=\"supprime\">"; 
+        echo "<input name=\"idSignalementPubli\" style=\"display:none\" type=\"text\" value=\"".$val['IdSignaler']."\">"; 
+        echo "</form>";
       }
     }
   if(is_array($tabCommentaire) || is_object($tabCommentaire)){
+    echo "<p> Signalements Commentaires : </p>";
     foreach($tabCommentaire as $val){
       echo "<a href=\"index.php?module=publication&action=afficher&id=".$val['IdPubli']."\">".$val['Motif']."</a>";
+        echo "<form action=\"index.php?module=user&action=reports\" method=\"post\">";
+        echo "<input name=\"supprimerReportCom\" type=\"submit\" value=\"supprime\">"; 
+        echo "<input name=\"idSignalementCom\" style=\"display:none\" type=\"text\" value=\"".$val['IdSignalerCom']."\">"; 
+        echo "</form>";
     }
   }
 }

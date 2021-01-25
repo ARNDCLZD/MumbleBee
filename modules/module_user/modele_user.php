@@ -87,12 +87,12 @@ class ModeleUser extends Connexion
       $motDePasse = password_hash($motDePasse, PASSWORD_DEFAULT);	
  		try {
       		$sql = self::$bdd->prepare('INSERT INTO utilisateur (Login, Email, MotDePasse, Admin) VALUES (?, ?, ?, ?)'); 
-      		$sql->execute([$login, $email, $motDePasse, $admin]);
-        	echo "Insertion effectuée. <br>";
+			$sql->execute([$login, $email, $motDePasse, $admin]);
+			header('Location: http://'.$_SERVER['HTTP_HOST'].'/MumbleBee/index.php?module=connexion&action=connecter');
     	} catch(PDOException $e) {
       		print_r($bdd->errorInfo());
     	}
-    }
+	}
     else
     {
       throw new ModeleUserException("Champ d'insertion nul.", 4);
@@ -173,6 +173,28 @@ class ModeleUser extends Connexion
 		  echo("utilisateur introuvable");
 		}
   }
+
+  public function supprimerReportsPubli($idSignalement){
+	try{
+		$sql = self::$bdd->prepare('DELETE FROM signalerpublication WHERE IdSignaler=:id');
+		$sql->bindParam(':id', $idSignalement);
+		$sql->execute();
+	}catch(PDOException $p){
+		echo("report introuvable");
+	}
+	echo "<meta http-equiv='refresh' content='0'>";
+  }
+  public function supprimerReportsCom($idSignalement){
+	try{
+		$sql = self::$bdd->prepare('DELETE FROM signalercommentaire WHERE IdSignalerCom=:id');
+		$sql->bindParam(':id', $idSignalement);
+		$sql->execute();
+	}catch(PDOException $p){
+		echo("report introuvable");
+	}
+	echo "<meta http-equiv='refresh' content='0'>";
+  }
+
 }
 class ModeleUserException extends Exception{}
 ?>

@@ -21,25 +21,51 @@ class ModelePublication extends Connexion
   }
 
   public function supprimerPublication(){
-	if(isset($_POST['supprimer'])){
+	if(isset($_POST['supprimerPublication'])){
 	try{
-		$id = $_POST['id'];
+		$id = $_POST['idPubli'];
 		$reponse = self::$bdd->prepare('DELETE FROM publication WHERE IdPubli = :id');
 		$reponse->bindParam(":id",$id);
 		$reponse->execute();
 		}catch(PDOException $p){
 		  echo("publication non supprimable");
 	}
+	try{
+		$id = $_POST['idPubli'];
+		$reponse = self::$bdd->prepare('DELETE FROM signalerpublication WHERE IdPubli = :id');
+		$reponse->bindParam(":id",$id);
+		$reponse->execute();
+		}catch(PDOException $p){
+		  echo("reports non supprimable");
+	}
+	try{
+		$id = $_POST['idPubli'];
+		$reponse = self::$bdd->prepare('DELETE FROM signalercommentaire WHERE IdPubli = :id');
+		$reponse->bindParam(":id",$id);
+		$reponse->execute();
+		}catch(PDOException $p){
+		  echo("reports non supprimable");
+	}
+	echo "<meta http-equiv='refresh' content='0'>";
+	header('Location: http://'.$_SERVER['HTTP_HOST'].'/MumbleBee/index.php?module=user&action=reports');
 	}
   }
 
   
   public function supprimerCommentaire(){
-	if(isset($_POST['idCom'])){
+	if(isset($_POST['supprimerCom'])){
 	try{
-		$val = $_POST['idCom'];
-		$reponse = self::$bdd->prepare('DELETE FROM commentaire WHERE IdCom = :val');
-		$reponse->bindParam(":val",$val);
+		$id = $_POST['idCom'];
+		$reponse = self::$bdd->prepare('DELETE FROM signalercommentaire WHERE IdCom = :id');
+		$reponse->bindParam(":id",$id);
+		$reponse->execute();
+		}catch(PDOException $p){
+		  echo("reports non supprimable");
+	}
+	try{
+		$id = $_POST['idCom'];
+		$reponse = self::$bdd->prepare('DELETE FROM commentaire WHERE IdCom = :id');
+		$reponse->bindParam(":id",$id);
 		$reponse->execute();
 		}catch(PDOException $p){
 		  echo("commentaire non supprimable");
@@ -199,11 +225,13 @@ class ModelePublication extends Connexion
 
   public function signalerCommentaire(){
 	if(isset($_POST['raisonCom'])){
+		$idCom = $_POST['IdCom'];
 		$idAuteur = $_SESSION['id'];
 		$idPubli = $_GET['id'];
 		$raison = $_POST['raisonCom'];
 		try{
-		  $sql = self::$bdd->prepare('INSERT INTO signalercommentaire (IdAuteur,IdPubli, Motif) VALUES(:idAuteur, :idPubli, :raisonCom)');
+		  $sql = self::$bdd->prepare('INSERT INTO signalercommentaire (IdCom, IdAuteur,IdPubli, Motif) VALUES(:idCom, :idAuteur, :idPubli, :raisonCom)');
+		  $sql->bindParam(':idCom',$idCom, PDO::PARAM_INT);
 		  $sql->bindParam(':idAuteur',$idAuteur['IdUtil'], PDO::PARAM_INT);
 		  $sql->bindParam(':idPubli',$idPubli, PDO::PARAM_INT);
 		  $sql->bindParam(':raisonCom',$raison, PDO::PARAM_STR);
@@ -211,6 +239,7 @@ class ModelePublication extends Connexion
 	  }catch(PDOException $e){
 		  print_r($bdd->errorInfo());
 	  }
+	  echo "<meta http-equiv='refresh' content='0'>";
 	}
   }
 

@@ -62,6 +62,8 @@ class ContPublication {
     $this->mod->signalerPublication();
     $this->mod->signalerCommentaire();
     $this->mod->supprimerCommentaire();
+    $this->mod->supprimerPublication();
+    
   }
 
   public function supprimerPublication(){

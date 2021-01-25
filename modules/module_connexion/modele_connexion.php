@@ -33,6 +33,7 @@ class ModeleConnexion extends Connexion
 
   public function deconnexion(){
     session_destroy();
+    header('Location: http://'.$_SERVER['HTTP_HOST'].'/MumbleBee/index.php');
   }
 }
 class ModeleConnexionException extends Exception{}
