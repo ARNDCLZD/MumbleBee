@@ -19,20 +19,30 @@ session_start();
 <?php
    if(isset($_GET['module'])){
     $module = $_GET['module'];
+   } else $module="static";
     switch ($module){
-         case "connexion" :
-        include "modules/module_".$module."/mod_".$module.".php";
-        Connexion::initConnexion();
-        break;
+      case "connexion" :
+         include "modules/module_".$module."/mod_".$module.".php";
+         break;
+      case "hashtag" :
+         include "modules/module_".$module."/mod_".$module.".php";
+         break;
+      case "publication" :
+         include "modules/module_".$module."/mod_".$module.".php";
+         break;
+      case "static" :
+         include "modules/module_".$module."/mod_".$module.".php";
+         break;
+      case "user" :
+         include "modules/module_".$module."/mod_".$module.".php";
+         break;
       default :
-      include "modules/module_".$module."/mod_".$module.".php";
-        //die("Interdiction d'accès à ce module.");
-        break;
+         die("Module introuvable introuvable");
+         break;
+      Connexion::initConnexion();
     }
    $nomModule = "Mod".$module;
    new $nomModule(); 
-   }
-   include 'vueIndex.php';
 ?>
 </main>
 <?php include 'templates/footer.php'; ?>
