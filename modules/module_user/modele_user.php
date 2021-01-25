@@ -144,6 +144,21 @@ class ModeleUser extends Connexion
 		  echo("utilisateur introuvable");
 		}
   }
+  public function getLikedPublications($start,$end){
+	try{
+		$idUtil = $_SESSION['id']['IdUtil'];
+		$sql = self::$bdd->prepare('SELECT publication.IdPubli,publication.Intitule FROM publication INNER JOIN likepublication ON publication.IdPubli=likepublication.IdPubli WHERE likepublication.IdAuteur = :id LIMIT :start,:end');
+		$sql->bindParam(':id', $idUtil);
+		$sql->bindParam(":start",$start,PDO::PARAM_INT);
+		$sql->bindParam(":end",$end,PDO::PARAM_INT);
+  		$sql->execute();
+		if(($tab = $sql->fetchAll()) != false) {
+		  return $tab;
+		}
+		}catch(PDOException $p){
+		  echo("utilisateur introuvable");
+		}
+  }
   public function getNbLikesAuteur(){
 	try{
 		$idUtil = $_GET['id'];

@@ -32,6 +32,7 @@ session_start();
    $nomModule = "Mod".$module;
    new $nomModule(); 
    }
+   include 'vueIndex.php';
 ?>
 </main>
 <?php include 'templates/footer.php'; ?>

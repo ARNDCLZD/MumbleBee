@@ -73,7 +73,17 @@ class ModelePublication extends Connexion
     	}
 		return $tab;
 	}
-
+	public function getPublicationsTrending(){
+		try{
+    		$reponse = self::$bdd->prepare('SELECT publication.IdPubli,publication.Intitule,count(likepublication.IdPubli) as value_occurence FROM likepublication NATURAL JOIN publication GROUP BY IdPubli ORDER BY value_occurence DESC LIMIT 0,15');
+    		$reponse->bindParam(":id",$id);
+			$reponse->execute();			
+			$tab = $reponse->fetchAll();
+    	}catch(PDOException $p){
+      		echo("commentaire introuvable");
+		}
+		return $tab;
+	}
     public function getPublicationIntitule() {
     	try{
     		$id = $_GET['Intitule'];

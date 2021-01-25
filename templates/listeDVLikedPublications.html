@@ -1,0 +1,66 @@
+<script>
+    const OFFSET=3;
+    let start=0;
+    let end = start+OFFSET;
+    let hasMadeFirstRequest = false;
+    var url = new URL(window.location.href);
+    window.addEventListener("load",fetchPublications);
+    function hide(element){
+        element.style.display="none";
+    }
+    function show(element){
+        element.style.display="flex";
+    }
+    async function fetchPublications() {
+        if(hasMadeFirstRequest){
+            start+=OFFSET;
+            end=OFFSET+start;
+        } else hasMadeFirstRequest=true;
+        const button = document.getElementById("button");
+        const loader = document.getElementById("loader");
+        hide(button);
+        show(loader);
+        const res = await fetch(`http://localhost/MumbleBee/api.php/?module=api&action=getLikedPublications&start=${start}&end=${end}`);
+        const data = await res.json();
+        setTimeout(async ()=>{
+            console.log("data : ", data);
+        const carousel = document.getElementById("container");
+        if(data.length<3){
+            console.log("here",carousel.nextElementSibling)
+            carousel.parentNode.removeChild(button);
+        }
+        console.log("ici",data);
+        data.forEach((publication,index)=>{
+                const{
+                    IdPubli,
+                    Intitule,
+            } = publication;
+            const slide = document.createElement("div");
+            slide.innerHTML = Intitule;
+            slide.className = "col-span-1 text-center h-80 bg-jaune-300 rounded-lg";
+            const link = document.createElement("a");
+            link.href = `index?module=publication&action=afficher&id=${IdPubli}`;
+            link.appendChild(slide);
+            carousel.appendChild(link);
+            console.log(slide);
+        });
+        if(button) show(button); 
+        hide(loader);
+        const res2 = await fetch(`http://localhost/MumbleBee/api.php/?module=api&action=getLikedPublications&start=${start+OFFSET}&end=${end+OFFSET}`);
+        const data2 = await res2.json();
+        if(data2===null){
+            console.log("here",carousel.nextElementSibling)
+            carousel.parentNode.removeChild(carousel.nextElementSibling);
+        }
+        },0);
+    };
+</script>
+<div class="flex flex-col flex-1 p-2  bg-noir-800">
+    <div id="container" onload="fetchPublications()" class="grid grid-cols-3 gap-2"></div>
+    <div id="button" onclick="fetchPublications()"class="hidden flex flex-1 max-h-8 justify-center align-center bg-jaune-300 mt-2  rounded-lg">
+        <button>
+            <img width=30 height=30 src="templates/icons/arrow-down.svg" alt="arrowdown" />
+        </button>
+    </div>
+    <div id="loader" class="flex flex-1 max-h-8 justify-center align-center"><img class=""width=40 height=40 src="templates/icons/loader.svg" alt="loader"/></div>
+</div>

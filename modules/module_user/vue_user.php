@@ -21,10 +21,7 @@ class VueUser{
     echo "<p><input type=\"submit\" value=\"OK\"></p>";
     echo "</form>";
   }
-
-
   public function showProfile($user, $nbPubli, $nbLikesPubli, $nbLikesAuteur){
-    var_dump($user['Admin']);
     if($user['Admin']==1) $status="Administrateur";
     else $status="Utilisateur";
 
@@ -74,7 +71,9 @@ class VueUser{
     echo "</div>";
     readfile(getcwd().'/templates/listeDVPublications.html'); 
   }
-
+  public function showLikes(){
+    readfile(getcwd().'/templates/listeDVLikedPublications.html');
+  }
   public function showReportsPage($tabPublication, $tabCommentaire){
     if(is_array($tabPublication) || is_object($tabPublication)){
       foreach($tabPublication as $val){

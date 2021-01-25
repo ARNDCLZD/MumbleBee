@@ -55,7 +55,7 @@ class ContUser {
     http_response_code(404);
   }
   public function showLikes(){
-    echo "les likes";
+    $this->vue->showLikes();
   }
   public function showProfile(){
     try{
