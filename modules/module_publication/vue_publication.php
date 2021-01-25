@@ -32,9 +32,9 @@ class VuePublication{
       echo "<p><input type=\"submit\" value=\"OK\"></p>";
       echo "</form>";
     }else{
-        echo "<form method=\"POST\" action=\"index.php?module=publication&action=supprimer&id=\"".$_GET['id']."\">";
-        echo "<input name=\"supprimer\" type=\"submit\" value=\"supprimer\">"; 
-        echo "<input name=\"id\" style=\"display:none\" type=\"text\" value=\"".$_GET['id']."\">"; 
+        echo "<form method=\"POST\" action=\"index.php?module=publication&action=afficher&id=".$_GET['id']."\">";
+        echo "<input name=\"supprimerPublication\" type=\"submit\" value=\"supprimer\">"; 
+        echo "<input name=\"idPubli\" style=\"display:none\" type=\"text\" value=\"".$_GET['id']."\">"; 
         echo "</form>";
     }
   }
@@ -51,14 +51,15 @@ class VuePublication{
       if($_SESSION['Admin'] == 0){
         echo "<form action=\"index.php?module=publication&action=afficher&id=".$_GET['id']."\" method=\"post\">";
       echo "<label for=\"signaler-select\">Choisissez la raison du signalement du commentaire:</label>     
-        <p><select name=\"raisonCom\" id=\"signaler-select\"> 
+        <p><select name=\"raisonCom\" id=\"signaler-select\">
             <option value=\"raison-signalement\">Please choose an option</option>
             <option value=\"racisme\">Racisme</option>
             <option value=\"nudité\">Nudité</option>
             <option value=\"violence\">Violence</option>
             <option value=\"toxicité\">Toxicité</option>
         </select>";
-        echo "<input name=\"signaler\" type=\"submit\" value=\"Signaler\" placeholder=\"signaler\"></p>";
+        echo "<input name=\"IdCom\" style=\"display:none\" type=\"text\" value=\"".$com['IdCom']."\">";
+        echo "<input name=\"signalerCom\" type=\"submit\" value=\"Signaler\" placeholder=\"signaler\"></p>";
         echo "</form>";
       }else{
         echo "<form action=\"index.php?module=publication&action=afficher&id=".$_GET['id']."\" method=\"post\">";

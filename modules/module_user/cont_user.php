@@ -70,12 +70,18 @@ class ContUser {
   }
 
   public function showReports(){
-    
     if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1){
       $tab = $this->mod->getReportsPublication();
       $coms = $this->mod->getReportsCommentaire();
-      
       $this->vue->showReportsPage($tab, $coms);
+      if(isset($_POST['idSignalementPubli'])){
+        $idSignalementPubli = $_POST['idSignalementPubli'];
+        $this->mod->supprimerReportsPubli($idSignalementPubli);
+      }
+      if(isset($_POST['idSignalementCom'])){
+        $idSignalementCom = $_POST['idSignalementCom'];
+        $this->mod->supprimerReportsCom($idSignalementCom);
+      }
     }
   }
   public function rechercheUserform(){
