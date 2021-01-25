@@ -8,35 +8,42 @@ class VuePublication{
 
   public function affiche_publication($value, $id)
   {
-    echo "<h1> Intitule : " . $value['Intitule'] . "</h1>";
-    echo "<h1> Description : " . $value['Description'] . "</h1>";
-    echo "<h1> Contenu : " . $value['Contenu'] . "</h1>";
-    if($_SESSION['Admin'] == 0){
+    echo "<div class=\"flex flex-col p-6\">";
+    echo "<div class=\"flex flex-col items-center justify-center border-2 border-noir-800 rounded-t-md\">";
+    echo "<h1 class=\"text-3xl\">" . $value['Intitule'] . "</h1>";
+    echo "<h1 class=\"bg-noir-800 text-jaune-300 rounded-sm text-2xl\">" . $value['Contenu'] . "</h1>";
+    echo "</div>";
+    echo "<div class=\"flex flex-row justify-between border-noir-800 border-b-2\">";
+    echo "<h1 class=\"text-xl\">" . $value['Description'] . "</h1>";
+    if(isset($_SESSION['Admin']) && $_SESSION['Admin'] == 0){
       echo "<form action=\"index.php?module=publication&action=afficher&id=".$id."\" method=\"post\">";;
       echo "<input name=\"like\" type=\"submit\" value=\"like\">"; 
       echo "<input name=\"id\" style=\"display:none\" type=\"text\" value=\"".$_GET['id']."\">"; 
       echo "</form>";
+      echo "</div>";
+      echo "<div class=\"flex flex-row justify-between\">";
+      echo "<form action=\"index.php?module=publication&action=afficher&id=".$id."\" method=\"post\">";
+      echo "<input type=\"text\" name=\"texteCommentaire\" placeholder=\"Commentaire...\"/>";
+      echo "<input type=\"submit\" value=\"OK\">";
+      echo "</form>";
       echo "<form action=\"index.php?module=publication&action=afficher&id=".$id."\"method=\"post\">";
-      echo "<label for=\"signaler-select\">Choisissez la raison du signalement de la publication:</label>     
-      <select name=\"raison\" id=\"signaler-select\"> 
-        <option value=\"raison-signalement\">Please choose an option</option>
+      echo "<select name=\"raison\" id=\"signaler-select\"> 
+        <option value=\"raison-signalement\" disabled selected hidden>Motif</option>
         <option value=\"racisme\">Racisme</option>
-        <option value=\"nudité\">Nudité</option>
+        <option value=\"contenuExplicite\">Contenu Explicite</option>
         <option value=\"violence\">Violence</option>
         <option value=\"toxicité\">Toxicité</option>
       </select>";
       echo "<input name=\"like\" type=\"submit\" value=\"Signaler\" placeholder=\"signaler\">";
       echo "</form>";
-      echo "<form action=\"index.php?module=publication&action=afficher&id=".$id."\" method=\"post\">";
-      echo "<p>Commentaire : <input type=\"text\" name=\"texteCommentaire\" /></p>";
-      echo "<p><input type=\"submit\" value=\"OK\"></p>";
-      echo "</form>";
-    }else{
+    }else if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1){
         echo "<form method=\"POST\" action=\"index.php?module=publication&action=afficher&id=".$_GET['id']."\">";
         echo "<input name=\"supprimerPublication\" type=\"submit\" value=\"supprimer\">"; 
         echo "<input name=\"idPubli\" style=\"display:none\" type=\"text\" value=\"".$_GET['id']."\">"; 
         echo "</form>";
     }
+    echo "</div>";
+    echo "</div>";
   }
 
   public function suppressionPublication_form(){
@@ -47,21 +54,19 @@ class VuePublication{
       echo "<br>";
       echo $com['NomAuteur']." : ".$com['Contenu'];
       echo "<br>";
-      echo "<button class=\"bg-noir-800\">ça match</button>";
-      if($_SESSION['Admin'] == 0){
+      if(isset($_SESSION['Admin']) && $_SESSION['Admin'] == 0){
         echo "<form action=\"index.php?module=publication&action=afficher&id=".$_GET['id']."\" method=\"post\">";
-      echo "<label for=\"signaler-select\">Choisissez la raison du signalement du commentaire:</label>     
-        <p><select name=\"raisonCom\" id=\"signaler-select\">
-            <option value=\"raison-signalement\">Please choose an option</option>
+      echo "<select name=\"raisonCom\" id=\"signaler-select\">
+            <option value=\"raison-signalement\" disabled selected hidden>Motif</option>
             <option value=\"racisme\">Racisme</option>
-            <option value=\"nudité\">Nudité</option>
+            <option value=\"contenuExplicite\">Contenu Explicite</option>
             <option value=\"violence\">Violence</option>
             <option value=\"toxicité\">Toxicité</option>
         </select>";
         echo "<input name=\"IdCom\" style=\"display:none\" type=\"text\" value=\"".$com['IdCom']."\">";
-        echo "<input name=\"signalerCom\" type=\"submit\" value=\"Signaler\" placeholder=\"signaler\"></p>";
+        echo "<input name=\"signalerCom\" type=\"submit\" value=\"Signaler\" placeholder=\"signaler\">";
         echo "</form>";
-      }else{
+      }else if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1){
         echo "<form action=\"index.php?module=publication&action=afficher&id=".$_GET['id']."\" method=\"post\">";
         echo "<input name=\"idCom\" style=\"display:none\" type=\"text\" value=\"".$com['IdCom']."\">";
         echo "<input name=\"supprimerCom\" type=\"submit\" value=\"supprimerCommentaire\" placeholder=\"signaler\">"; 
@@ -77,46 +82,29 @@ class VuePublication{
 
 
   public function publication_form(){
-    echo "<form action=\"index.php?module=publication&action=ajout\" method=\"post\" enctype=\"multipart/form-data\">";
-    echo "<p>Titre : <input type=\"text\" name=\"Intitule\" /></p>";
-    echo "<p>TypeContenu : <select id=\"choix\" name=\"TypeContenu\">
-                              <option value =\"\" disabled selected hidden></option>
-                              <option value=\"texte\">Texte</option>
-                              <option value =\"image\">Image</option>
-                              <option value =\"son\">Son</option>
-                              <option value =\"video\">Video</option>
-                          </select></p>";
-    ?>
-    <script>
-    window.addEventListener("load",function(){
-      document.getElementById("choix").addEventListener("change",function(e){
-        const inputs = {
-          texte :"<p>Contenu : <textarea name=\"Contenu\"></textarea></p>",
-          image :"<p><input type=\"file\" name=\"Contenu\"</p>",
-          son :"<p><input type=\"file\" name=\"Contenu\"</p>",
-          video :"<p><input type=\"file\" name=\"Contenu\"</p>",
-        }
-        document.getElementById("Contenu").innerHTML = inputs[e.target.value];
-      });
-    });
-    </script>
-    <?php
-    echo "<div id=\"Contenu\"></div>";
-    echo "<p>Description : <input type=\"text\" name=\"Description\" /></p>";
-    echo "<p>Prive : <input type=\"checkbox\" name=\"Prive\" value=\"1\" /></p>";
-    echo "<p><input id=\"bouton\" type=\"submit\" value=\"OK\"></p>";
+    echo "<div class=\"flex flex-col justify-center items-center text-center w-screen h-2/5\">";
+    echo "<form class=\"w-full flex flex-col justify-center items-center h-full\" action=\"index.php?module=publication&action=ajout\" method=\"post\" enctype=\"multipart/form-data\">";
+    echo "<input class=\"w-2/5 text-center bg-noir-800 text-jaune-300 placeholder-jaune-200 focus:outline-none focus:bg-jaune-300 focus:text-noir-800 transition duration-300 rounded-t-lg\" type=\"text\" name=\"Intitule\" placeholder=\"Titre\"/>";
+    echo "<textarea class=\"w-3/5 h-3/5 resize-none bg-noir-800 text-jaune-300 focus:outline-none rounded-t-lg focus:bg-jaune-300 focus:text-noir-800 transition duration-300\" name=\"Contenu\"></textarea>";
+    echo "<input class=\"w-3/5 text-center bg-noir-800 text-jaune-300 placeholder-jaune-200 focus:outline-none focus:bg-jaune-300 focus:text-noir-800 transition duration-300 rounded-b-lg\" type=\"text\" name=\"Description\" placeholder=\"Description\"/>";
+    echo "<input class=\"w-1/5 bg-noir-800 text-jaune-300 focus:outline-none rounded-b-lg\" id=\"bouton\" type=\"submit\" value=\"Publier\">";
     echo "</form>";
+    echo "</div>";
 
   }
   public function recherchePublication_form($tab){
+    echo '<div class="">';
+    echo '<p class="text-3xl text-jaune-300 bg-noir-800 border-b-2 border-noir-800">Résultats : </p>';
     if(!empty($tab)){
       foreach ($tab as $value) {
-        echo " <a style=\"color:blue;\" href=\"index.php?module=publication&action=afficher&id={$value['IdPubli']}\"> {$value['Intitule']}</a> ";
+        echo " <a href=\"index.php?module=publication&action=afficher&id={$value['IdPubli']}\"> {$value['Intitule']}</a> ";
+        echo "<br>";
       }
     }
     else{
-      echo "<h2>Pas de résultat :/</h2>";
+      echo '<h2 class="text-2xl">Aucun résultat</h2>';
     }
+    echo '</div>';
   }
 
   

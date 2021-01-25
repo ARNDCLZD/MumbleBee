@@ -140,18 +140,16 @@ class ModelePublication extends Connexion
 	$intitule = $_POST['Intitule'];
 	
   	$contenu = $_POST['Contenu'];
-  	$typeContenu = $_POST['TypeContenu'];
   	$description = $_POST['Description'];
   	$prive = isset($_POST['Prive']) ? $_POST['Prive'] : 0;
 
-  	if($intitule !== "" && $description !== "" && $typeContenu !== "" && $contenu !== ""){
+  	if($intitule !== "" && $description !== "" && $contenu !== ""){
       $intitule = trim(htmlentities($intitule));
   		$contenu = trim(htmlentities($contenu));
   		$description = trim(htmlentities($description));
-  		$typeContenu = trim(htmlentities($typeContenu));
  		try {
       $sql = self::$bdd->prepare('INSERT INTO publication (Contenu, Intitule, Description, Prive, TypeContenu) VALUES (?, ?, ?, ?, ?)'); 
-      $sql->execute([$contenu, $intitule, $description, $prive, $typeContenu]);
+      $sql->execute([$contenu, $intitule, $description, $prive, "texte"]);
     } catch(PDOException $e) {
       print_r($bdd->errorInfo());
     	}
