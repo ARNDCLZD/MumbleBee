@@ -34,6 +34,9 @@ class ContHashtag {
         case "getHashtags":
           $this->getHashtags();
           break;
+          case "afficher":
+            $this->afficherHashtags();
+            break;
         default:
           $this->error();
       }    
@@ -53,7 +56,9 @@ class ContHashtag {
     }
     
   }
-
+  public function afficherHashtags(){
+    readfile(getcwd().'/templates/listeDVPublicationsHashtag.html');
+  }
   public function ajoutHashtagform(){
     $this->vue->hashtag_form();
   }

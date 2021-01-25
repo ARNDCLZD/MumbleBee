@@ -91,6 +91,41 @@ class ModeleHashtag extends Connexion
   		return $tab;
   	}
   }
+  public function getPublicationsByHashtagId($id,$start,$end){
+	try{
+	  $reponse = self::$bdd->prepare('SELECT * FROM publication NATURAL JOIN taguer WHERE idHashtag=:id LIMIT :start,:end');
+	  
+	  $reponse->bindParam(":id",$id,PDO::PARAM_INT);
+	  $reponse->bindParam(":start",$start,PDO::PARAM_INT);
+	  $reponse->bindParam(":end",$end,PDO::PARAM_INT);
+	  $reponse->execute();
+	  $tab = $reponse->fetchAll();
+	  return $tab;
+	}catch(PDOException $e){
+		print_r($e->getMessage());
+	}
+}
+
+  public function getHashtagsTrending(){
+	try{
+		$reponse = self::$bdd->prepare('SELECT hashtag.IdHashtag,hashtag.Intitule,count(taguer.IdHashtag) as value_occurence FROM taguer NATURAL JOIN hashtag GROUP BY IdHashtag ORDER BY value_occurence DESC LIMIT 0,15');
+		$reponse->execute();	
+		$tab = $reponse->fetchAll();
+	}catch(PDOException $p){
+		  echo("commentaire introuvable");
+	}
+	return $tab;
+}
+public function getHashtagsOfficiel(){
+	try{
+		$reponse = self::$bdd->prepare('SELECT * FROM hashtag WHERE MarqueurOfficiel=1');
+		$reponse->execute();	
+		$tab = $reponse->fetchAll();
+	}catch(PDOException $p){
+		  echo("commentaire introuvable");
+	}
+	return $tab;
+}
 
 }
 class ModeleHashtagException extends Exception{}
