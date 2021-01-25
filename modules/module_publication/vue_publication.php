@@ -12,6 +12,10 @@ class VuePublication{
     echo "<h1> Description : " . $value['Description'] . "</h1>";
     echo "<h1> Contenu : " . $value['Contenu'] . "</h1>";
     if($_SESSION['Admin'] == 0){
+      echo "<form action=\"index.php?module=publication&action=afficher&id=".$id."\" method=\"post\">";;
+      echo "<input name=\"like\" type=\"submit\" value=\"like\">"; 
+      echo "<input name=\"id\" style=\"display:none\" type=\"text\" value=\"".$_GET['id']."\">"; 
+      echo "</form>";
       echo "<form action=\"index.php?module=publication&action=afficher&id=".$id."\"method=\"post\">";
       echo "<label for=\"signaler-select\">Choisissez la raison du signalement de la publication:</label>     
       <select name=\"raison\" id=\"signaler-select\"> 
@@ -41,9 +45,7 @@ class VuePublication{
 
   public function affiche_commentaire($com){
       echo "<br>";
-      echo "Utilisateur: " . $com['IdAuteur'];
-      echo "<br>";
-      echo "Commentaire: " . $com['Contenu'];
+      echo $com['NomAuteur']." : ".$com['Contenu'];
       echo "<br>";
       echo "<button class=\"bg-noir-800\">ça match</button>";
       if($_SESSION['Admin'] == 0){

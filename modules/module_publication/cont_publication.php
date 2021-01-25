@@ -30,12 +30,6 @@ class ContPublication {
         case "afficher":
           $this->afficherPublication();
           break;
-        case "supprimer":
-          $this->supprimerPublication();
-          break;
-        case "supprimerCom":
-          $this->supprimerCommentaire();
-          break;
         default:
           $this->error();
       }    
@@ -79,7 +73,5 @@ class ContPublication {
     $this->mod->supprimerCommentaire();
     $this->vue->suppressionCommentaire();
   }
-
- 
 }
 ?>
