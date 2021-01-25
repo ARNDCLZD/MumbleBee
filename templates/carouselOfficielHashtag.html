@@ -1,0 +1,55 @@
+<div>
+    <h1>Trending</h1>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="module">
+        const callApi = async()=>{
+            const res = await fetch("http://localhost/MumbleBee/api.php/?module=api&action=getHashtagsOfficiel");
+            const data = await res.json();
+            console.log("data : ", data);
+            const carousel = document.getElementById("container");
+            data.forEach((hashtag,index)=>{
+                    const{
+                        IdHashtag,
+                        Intitule,
+                    } = hashtag;
+                    const slide = document.createElement("div");
+                    slide.innerHTML = Intitule;
+                    slide.className = "";
+                    const link = document.createElement("a");
+                    link.href = `index?module=hashtag&action=afficher&id=${IdHashtag}`;
+                    slide.className = "text-center bg-noir-800 font-bold text-jaune-300 hover:text-jaune-400 text-xs md:text-3xl";
+                    link.appendChild(slide);
+                    carousel.appendChild(link);
+                    console.log(carousel);
+                })
+        } 
+        const initCarousel = async()=>{
+            await callApi();
+            $(document).ready(function(){
+                $('.container').slick({
+                    infinite: true,
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    prevArrow: '<button type="button" class="slick-prev flex-1 flex justify-center"><svg class="fill-current text-noir-800" xmlns="http://www.w3.org/2000/svg" width=50 height=50 viewBox="0 0 20 20"><path d="M10 13h8V7h-8V2l-8 8 8 8v-5z"/></svg></button>',
+                    nextArrow: '<button type="button" class="slick-prev flex-1 flex justify-center"><svg class="fill-current text-noir-800" xmlns="http://www.w3.org/2000/svg" width=50 height=50 viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg></button>'
+                });
+            });
+        }
+        initCarousel();
+    </script>
+    <div class="container" id="container"></div>
+</div>
+
+<style>
+    .slick-list{
+        flex: 1 1 80%;
+    }
+    .container{
+        display:flex;
+        align-items: center;
+        max-width: unset;
+    }
+</style>

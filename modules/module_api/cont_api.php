@@ -37,6 +37,15 @@ class ContApi {
         case "getPublicationsTrending":
           $this->getPublicationsTrending();
           break;
+          case "getHashtagsTrending":
+            $this->getHashtagsTrending();
+            break;
+            case "getHashtagsOfficiel":
+              $this->getHashtagsOfficiel();
+              break;
+            case "getPublicationsByHashtagId":
+              $this->getPublicationsByHashtagId();
+              break;
         default:
           $this->error();
           break;
@@ -47,6 +56,17 @@ class ContApi {
     http_response_code(404);
     die;
   }
+
+  public function getHashtagsTrending(){
+    $hashtags = $this->modHashtag->getHashtagsTrending();
+    echo json_encode($hashtags);
+  }
+
+  public function getHashtagsOfficiel(){
+    $hashtags = $this->modHashtag->getHashtagsOfficiel();
+    echo json_encode($hashtags);
+  }
+
   public function getHashtags(){
     $hashtags = $this->modHashtag->getHashtags();
     echo json_encode($hashtags);
@@ -61,6 +81,11 @@ class ContApi {
   }
   public function getPublicationsByAuthorId(){
     $publications = $this->modPublication->getPublicationsByAuthorId($_GET['id'],$_GET['start'],$_GET['end']);
+    echo json_encode($publications);
+  }
+
+  public function getPublicationsByHashtagId(){
+    $publications = $this->modHashtag->getPublicationsByHashtagId($_GET['id'],$_GET['start'],$_GET['end']);
     echo json_encode($publications);
   }
   public function getPublicationsTrending(){

@@ -102,7 +102,6 @@ class ModelePublication extends Connexion
 	public function getPublicationsTrending(){
 		try{
     		$reponse = self::$bdd->prepare('SELECT publication.IdPubli,publication.Intitule,count(likepublication.IdPubli) as value_occurence FROM likepublication NATURAL JOIN publication GROUP BY IdPubli ORDER BY value_occurence DESC LIMIT 0,15');
-    		$reponse->bindParam(":id",$id);
 			$reponse->execute();			
 			$tab = $reponse->fetchAll();
     	}catch(PDOException $p){
@@ -135,6 +134,8 @@ class ModelePublication extends Connexion
 		  print_r($e->getMessage());
 	  }
   }
+
+  
   public function ajoutPublication(){
 	//$contenu = basename($_FILES["Contenu"]["tmp_name"]);
 	$intitule = $_POST['Intitule'];
