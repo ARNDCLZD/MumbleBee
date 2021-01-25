@@ -35,7 +35,7 @@ class ModelePublication extends Connexion
 
   
   public function supprimerCommentaire(){
-	if(isset($_POST['supprimerCom'])){
+	if(isset($_POST['idCom'])){
 	try{
 		$val = $_POST['idCom'];
 		$reponse = self::$bdd->prepare('DELETE FROM commentaire WHERE IdCom = :val');
@@ -44,6 +44,7 @@ class ModelePublication extends Connexion
 		}catch(PDOException $p){
 		  echo("commentaire non supprimable");
 	}
+	echo "<meta http-equiv='refresh' content='0'>";
 	}
   }
 
