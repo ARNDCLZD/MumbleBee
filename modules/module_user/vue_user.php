@@ -24,7 +24,6 @@ class VueUser{
 
 
   public function showProfile($user, $nbPubli, $nbLikesPubli, $nbLikesAuteur){
-    var_dump($user['Admin']);
     if($user['Admin']==1) $status="Administrateur";
     else $status="Utilisateur";
 

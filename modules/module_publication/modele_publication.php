@@ -155,7 +155,7 @@ class ModelePublication extends Connexion
   	}
   }
 
-  public function liker(){
+  public function liker(){  
 	  if(isset($_POST['like'])){
 		  $idAuteur = $_SESSION['id'];
 		  $idPubli = $_GET['id'];
